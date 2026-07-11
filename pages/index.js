@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import { useEffect } from 'react';
 import PublicLayout from '../components/layout/PublicLayout';
 import HeroSection from '../components/portfolio/HeroSection';
 import AboutSection from '../components/portfolio/AboutSection';
@@ -10,6 +11,16 @@ import ContactSection from '../components/portfolio/ContactSection';
 import { prisma } from '../lib/prisma';
 
 export default function Home({ profile, experiences, education, projects, skills, socials }) {
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      window.history.scrollRestoration = 'manual';
+      window.scrollTo(0, 0);
+      if (window.location.hash) {
+        window.history.replaceState(null, '', window.location.pathname);
+      }
+    }
+  }, []);
+
   return (
     <PublicLayout>
       <Head>
