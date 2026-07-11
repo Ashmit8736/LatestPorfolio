@@ -9,7 +9,20 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@prisma/adapter-mariadb": "^7.8.0",
+    "@prisma/client": "^7.8.0",
+    "@tidbcloud/prisma-adapter": "^6.17.0",
+    "@tidbcloud/serverless": "^0.3.0",
+    "bcryptjs": "^3.0.3",
+    "cookie": "^2.0.1",
+    "framer-motion": "^12.42.2",
+    "jsonwebtoken": "^9.0.3",
+    "lucide-react": "^1.24.0",
+    "mariadb": "^3.5.3",
+    "multer": "^2.2.0",
     "next": "16.2.10",
+    "next-connect": "^0.12.2",
+    "prisma": "^7.8.0",
     "react": "19.2.4",
     "react-dom": "19.2.4"
   },
