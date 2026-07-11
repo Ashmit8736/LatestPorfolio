@@ -15,7 +15,7 @@ export default function ExperienceSection({ experiences }) {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-black bg-gradient-to-r from-[#ff5a1f] to-orange-400 bg-clip-text text-transparent mb-4 uppercase tracking-tighter">Professional Experience</h2>
-          <div className="w-20 h-1 bg-emerald-500 mx-auto rounded-full"></div>
+          <div className="w-20 h-1 bg-[#ff5a1f] mx-auto rounded-full"></div>
         </motion.div>
 
         <div className="max-w-4xl mx-auto">
@@ -32,12 +32,12 @@ export default function ExperienceSection({ experiences }) {
               <div className="absolute left-[19px] sm:left-[160px] top-0 bottom-0 w-px bg-white/10 group-last:bottom-auto group-last:h-full"></div>
               
               {/* Timeline Dot */}
-              <div className="flex absolute left-[11px] sm:left-[152px] top-8 w-4 h-4 rounded-full bg-[#050505] border-2 border-emerald-500 items-center justify-center z-10">
-                <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full"></div>
+              <div className="flex absolute left-[11px] sm:left-[152px] top-8 w-4 h-4 rounded-full bg-[#050505] border-2 border-[#ff5a1f] items-center justify-center z-10">
+                <div className="w-1.5 h-1.5 bg-[#ff5a1f] rounded-full"></div>
               </div>
 
               {/* Date */}
-              <div className="sm:absolute left-0 top-7 sm:w-[140px] sm:text-right sm:pr-4 text-sm font-medium text-emerald-400 mb-2 sm:mb-0">
+              <div className="sm:absolute left-0 top-7 sm:w-[140px] sm:text-right sm:pr-4 text-sm font-medium text-[#ff5a1f] mb-2 sm:mb-0">
                 {new Date(exp.startDate).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })} - 
                 {exp.isCurrent ? ' Present' : exp.endDate ? ` ${new Date(exp.endDate).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}` : ''}
               </div>
@@ -45,7 +45,7 @@ export default function ExperienceSection({ experiences }) {
               {/* Content Card */}
               <div className="bg-white/5 border border-white/10 p-6 rounded-2xl backdrop-blur-sm hover:bg-white/10 transition-colors">
                 <h3 className="text-2xl font-bold text-white mb-1 flex items-center gap-2">
-                  <Briefcase className="w-5 h-5 text-emerald-500" />
+                  <Briefcase className="w-5 h-5 text-[#ff5a1f]" />
                   {exp.role}
                 </h3>
                 <h4 className="text-lg text-gray-400 mb-4">{exp.companyName} {exp.location && `• ${exp.location}`}</h4>

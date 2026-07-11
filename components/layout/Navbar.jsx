@@ -47,7 +47,7 @@ export default function Navbar() {
             {showAdmin && (
               <Link 
                 href="/login" 
-                className="ml-4 px-4 py-2 text-xs font-bold uppercase tracking-wider text-emerald-400 border border-emerald-500/50 rounded-lg hover:bg-emerald-500/10 transition-colors"
+                className="ml-4 px-4 py-2 text-xs font-bold uppercase tracking-wider text-[#ff5a1f] border border-[#ff5a1f]/50 rounded-lg hover:bg-[#ff5a1f]/10 transition-colors"
               >
                 Only Admin
               </Link>
@@ -90,7 +90,7 @@ export default function Navbar() {
                 <Link 
                   href="/login" 
                   onClick={() => setIsMenuOpen(false)}
-                  className="inline-block mt-4 px-6 py-3 w-max text-sm font-bold uppercase tracking-wider text-emerald-400 border border-emerald-500/50 rounded-lg hover:bg-emerald-500/10 transition-colors"
+                  className="inline-block mt-4 px-6 py-3 w-max text-sm font-bold uppercase tracking-wider text-[#ff5a1f] border border-[#ff5a1f]/50 rounded-lg hover:bg-[#ff5a1f]/10 transition-colors"
                 >
                   Only Admin
                 </Link>

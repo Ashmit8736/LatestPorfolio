@@ -53,7 +53,7 @@ export default function ProjectsSection({ projects }) {
                 {project.techStack && (
                   <div className="flex flex-wrap gap-2 mb-6">
                     {project.techStack.split(',').map(tech => tech.trim()).slice(0, 4).map((tech, i) => (
-                      <span key={i} className="text-xs font-medium text-emerald-400 bg-emerald-400/10 px-2.5 py-1 rounded-md">
+                      <span key={i} className="text-xs font-medium text-[#ff5a1f] bg-[#ff5a1f]/10 px-2.5 py-1 rounded-md">
                         {tech}
                       </span>
                     ))}

@@ -15,7 +15,7 @@ export default function EducationSection({ education }) {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-black bg-gradient-to-r from-[#ff5a1f] to-orange-400 bg-clip-text text-transparent mb-4 uppercase tracking-tighter">Education</h2>
-          <div className="w-20 h-1 bg-purple-500 mx-auto rounded-full"></div>
+          <div className="w-20 h-1 bg-[#ff5a1f] mx-auto rounded-full"></div>
         </motion.div>
 
         <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
@@ -28,12 +28,12 @@ export default function EducationSection({ education }) {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               className="bg-white/5 border border-white/10 p-8 rounded-2xl backdrop-blur-sm hover:bg-white/10 transition-all hover:-translate-y-1"
             >
-              <div className="w-12 h-12 bg-purple-500/20 rounded-xl flex items-center justify-center mb-6">
-                <GraduationCap className="w-6 h-6 text-purple-400" />
+              <div className="w-12 h-12 bg-[#ff5a1f]/20 rounded-xl flex items-center justify-center mb-6">
+                <GraduationCap className="w-6 h-6 text-[#ff5a1f]" />
               </div>
               
               <h3 className="text-2xl font-bold text-white mb-2">{edu.degree}</h3>
-              <h4 className="text-lg text-purple-400 mb-4">{edu.institution}</h4>
+              <h4 className="text-lg text-[#ff5a1f] mb-4">{edu.institution}</h4>
               
               <div className="flex flex-wrap gap-4 mb-4 text-sm text-gray-400">
                 <span className="bg-white/5 px-3 py-1 rounded-full border border-white/10">{edu.startYear} - {edu.endYear}</span>
