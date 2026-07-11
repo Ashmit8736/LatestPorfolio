@@ -19,7 +19,7 @@ export default function List() {
     <AdminLayout>
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold">Projects</h1>
-        <Link href="/admin/projects/new" className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Add New</Link>
+        <Link href="/admin/projects/new" className="px-4 py-2 rounded bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] text-white hover:opacity-90 transition-opacity border-0">Add New</Link>
       </div>
       <div className="overflow-x-auto bg-white rounded-lg shadow-sm border">
         <table className="w-full text-left border-collapse">

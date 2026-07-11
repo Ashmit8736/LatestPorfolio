@@ -7,7 +7,7 @@ export default function AdminLayout({ children }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="flex h-screen bg-gray-100 font-sans overflow-hidden">
+    <div className="flex h-screen font-sans overflow-hidden bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045]">
       <Head><title>Admin Panel</title></Head>
       
       {/* Mobile Top Bar */}

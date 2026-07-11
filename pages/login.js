@@ -32,7 +32,7 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045]">
       <div className="max-w-md w-full bg-white p-8 border border-gray-200 rounded-xl shadow-sm">
         <h2 className="text-3xl font-bold text-center mb-8">{!pinEntered ? 'Security Check' : 'Admin Login'}</h2>
         {error && <p className="text-red-600 mb-4 text-center">{error}</p>}
@@ -51,7 +51,7 @@ export default function Login() {
                 placeholder="••••••" 
               />
             </div>
-            <button type="submit" className="w-full bg-blue-600 text-white font-medium py-3 rounded-lg hover:bg-blue-700 transition">Verify PIN</button>
+            <button type="submit" className="w-full font-medium py-3 rounded-lg bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] text-white hover:opacity-90 transition-opacity border-0">Verify PIN</button>
           </form>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-6">
@@ -63,7 +63,7 @@ export default function Login() {
               <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
               <input required type="password" value={password} onChange={e => setPassword(e.target.value)} className="w-full px-4 py-2 border rounded-lg focus:ring-blue-500 focus:border-blue-500" />
             </div>
-            <button type="submit" className="w-full bg-gray-900 text-white font-medium py-2 rounded-lg hover:bg-black transition">Login</button>
+            <button type="submit" className="w-full font-medium py-2 rounded-lg bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] text-white hover:opacity-90 transition-opacity border-0">Login</button>
           </form>
         )}
       </div>
