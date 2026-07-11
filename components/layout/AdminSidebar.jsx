@@ -13,13 +13,13 @@ export default function AdminSidebar({ onNavigate }) {
   ];
 
   return (
-    <aside className="w-full h-full bg-white/20 backdrop-blur-lg border-r border-white/40 shadow-xl text-gray-900 flex flex-col pt-16 md:pt-0 overflow-y-auto">
+    <aside className="w-full h-full bg-white/85 backdrop-blur-xl border-r border-white/50 shadow-2xl text-gray-900 flex flex-col pt-16 md:pt-0 overflow-y-auto">
       <div className="p-6 hidden md:block">
         <h2 className="text-2xl font-bold">Admin Panel</h2>
       </div>
       <nav className="mt-2 md:mt-6 flex-1">
         {links.map(link => (
-          <Link key={link.name} href={link.path} onClick={onNavigate} className="block px-6 py-3 hover:bg-white/40 hover:text-gray-900 transition">
+          <Link key={link.name} href={link.path} onClick={onNavigate} className="block px-6 py-3 hover:bg-white/60 hover:text-gray-900 transition">
             {link.name}
           </Link>
         ))}

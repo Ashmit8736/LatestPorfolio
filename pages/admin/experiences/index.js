@@ -21,19 +21,19 @@ export default function List() {
         <h1 className="text-3xl font-bold">Experiences</h1>
         <Link href="/admin/experiences/new" className="px-4 py-2 rounded bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] text-white hover:opacity-90 transition-opacity border-0">Add New</Link>
       </div>
-      <div className="overflow-x-auto rounded-lg bg-white/30 backdrop-blur-md border border-white/40 shadow-xl">
+      <div className="overflow-x-auto rounded-lg bg-white/85 backdrop-blur-xl border border-white/50 shadow-2xl text-gray-900">
         <table className="w-full text-left border-collapse">
           <thead>
-            <tr className="bg-white/40 border-b border-white/30">
-              <th className="p-4 font-semibold text-gray-700">Company Name</th>
-              <th className="p-4 font-semibold text-gray-700">Role</th>
-              <th className="p-4 font-semibold text-gray-700">Duration</th>
-              <th className="p-4 font-semibold text-gray-700 text-right">Actions</th>
+            <tr className="bg-gray-100/80 border-b border-gray-300 text-black">
+              <th className="p-4 font-semibold text-gray-900 font-semibold">Company Name</th>
+              <th className="p-4 font-semibold text-gray-900 font-semibold">Role</th>
+              <th className="p-4 font-semibold text-gray-900 font-semibold">Duration</th>
+              <th className="p-4 font-semibold text-gray-900 font-semibold text-right">Actions</th>
             </tr>
           </thead>
           <tbody>
             {items.map(item => (
-              <tr key={item.id} className="border-b border-white/20 hover:bg-white/20">
+              <tr key={item.id} className="border-b border-gray-200 hover:bg-white/60">
                 <td className="p-4 font-medium">{item.companyName}</td>
                 <td className="p-4 text-sm text-gray-600">{item.role}</td>
                 <td className="p-4 text-sm text-gray-600">

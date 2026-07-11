@@ -46,29 +46,29 @@ export default function New() {
   return (
     <AdminLayout>
       <h1 className="text-3xl font-bold mb-6">Add Project</h1>
-      <form onSubmit={handleSubmit} className="space-y-4 max-w-xl p-6 rounded-lg bg-white/30 backdrop-blur-md border border-white/40 shadow-xl">
+      <form onSubmit={handleSubmit} className="space-y-4 max-w-xl p-6 rounded-lg bg-white/85 backdrop-blur-xl border border-white/50 shadow-2xl text-gray-900">
         <div>
-          <label className="block mb-1 font-medium text-gray-700">Project Name</label>
+          <label className="block mb-1 font-medium text-gray-900 font-semibold">Project Name</label>
           <input type="text" required className="w-full border p-2 rounded" placeholder="Project Name" onChange={e => setFormData({ ...formData, title: e.target.value })} />
         </div>
         <div>
-          <label className="block mb-1 font-medium text-gray-700">Technologies Used</label>
+          <label className="block mb-1 font-medium text-gray-900 font-semibold">Technologies Used</label>
           <input type="text" required className="w-full border p-2 rounded" placeholder="React, Next.js, Tailwind..." onChange={e => setFormData({ ...formData, techStack: e.target.value })} />
         </div>
         <div>
-          <label className="block mb-1 font-medium text-gray-700">Description</label>
+          <label className="block mb-1 font-medium text-gray-900 font-semibold">Description</label>
           <textarea required rows="4" className="w-full border p-2 rounded" placeholder="Describe the project..." onChange={e => setFormData({ ...formData, description: e.target.value })}></textarea>
         </div>
         <div>
-          <label className="block mb-1 font-medium text-gray-700">GitHub Link</label>
+          <label className="block mb-1 font-medium text-gray-900 font-semibold">GitHub Link</label>
           <input type="url" className="w-full border p-2 rounded" placeholder="https://github.com/..." onChange={e => setFormData({ ...formData, githubUrl: e.target.value })} />
         </div>
         <div>
-          <label className="block mb-1 font-medium text-gray-700">Live Link</label>
+          <label className="block mb-1 font-medium text-gray-900 font-semibold">Live Link</label>
           <input type="url" className="w-full border p-2 rounded" placeholder="https://..." onChange={e => setFormData({ ...formData, liveUrl: e.target.value })} />
         </div>
         <div>
-          <label className="block mb-2 font-medium text-gray-700">Project Image</label>
+          <label className="block mb-2 font-medium text-gray-900 font-semibold">Project Image</label>
           
           {imageFile ? (
             <div className="flex items-center justify-between p-4 bg-blue-50 border border-blue-200 rounded-lg">
@@ -92,7 +92,7 @@ export default function New() {
         </div>
         <div className="flex items-center space-x-2 mt-4">
           <input type="checkbox" id="featured" onChange={e => setFormData({ ...formData, featured: e.target.checked })} />
-          <label htmlFor="featured" className="font-medium text-gray-700">Featured Project</label>
+          <label htmlFor="featured" className="font-medium text-gray-900 font-semibold">Featured Project</label>
         </div>
         <div className="pt-4">
           <button type="submit" disabled={isUploading} className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 w-full disabled:opacity-50">

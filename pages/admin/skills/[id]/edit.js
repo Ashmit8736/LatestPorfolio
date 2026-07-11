@@ -28,7 +28,7 @@ export default function Edit() {
   return (
     <AdminLayout>
       <h1 className="text-3xl font-bold mb-6">Edit Skill</h1>
-      <form onSubmit={handleSubmit} className="space-y-4 max-w-xl p-6 rounded-lg bg-white/30 backdrop-blur-md border border-white/40 shadow-xl">
+      <form onSubmit={handleSubmit} className="space-y-4 max-w-xl p-6 rounded-lg bg-white/85 backdrop-blur-xl border border-white/50 shadow-2xl text-gray-900">
         <div><label className="block mb-1 font-medium">Skill Name</label><input required className="w-full border p-2 rounded" placeholder="e.g. React.js" value={formData.name || ''} onChange={e => setFormData({...formData, name: e.target.value})} /></div>
         <div>
           <label className="block mb-1 font-medium">Category (Optional)</label>
