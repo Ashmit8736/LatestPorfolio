@@ -37,11 +37,11 @@ export default function ContactSection() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-2">Name</label>
-              <input required type="text" value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} className="w-full bg-[#050505] text-white px-4 py-3 border border-white/10 rounded-xl focus:ring-2 focus:ring-[#ff5a1f]/50 focus:border-[#ff5a1f] outline-none transition-all" placeholder="John Doe" />
+              <input required type="text" value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} className="w-full bg-[#050505] text-white px-4 py-3 border border-white/10 rounded-xl focus:ring-2 focus:ring-[#ff5a1f]/50 focus:border-[#ff5a1f] outline-none transition-all" placeholder="Enter Name" />
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-2">Email</label>
-              <input required type="email" value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} className="w-full bg-[#050505] text-white px-4 py-3 border border-white/10 rounded-xl focus:ring-2 focus:ring-[#ff5a1f]/50 focus:border-[#ff5a1f] outline-none transition-all" placeholder="john@example.com" />
+              <input required type="email" value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} className="w-full bg-[#050505] text-white px-4 py-3 border border-white/10 rounded-xl focus:ring-2 focus:ring-[#ff5a1f]/50 focus:border-[#ff5a1f] outline-none transition-all" placeholder="Enter Email" />
             </div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
