@@ -15,8 +15,8 @@ export default function ProjectsSection({ projects }) {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl font-bold text-white mb-4">Featured Projects</h2>
-          <div className="w-20 h-1 bg-blue-500 mx-auto rounded-full"></div>
+          <h2 className="text-4xl md:text-5xl font-black bg-gradient-to-r from-[#ff5a1f] to-orange-400 bg-clip-text text-transparent mb-4 uppercase tracking-tighter">Featured Projects</h2>
+          <div className="w-20 h-1 bg-gradient-to-r from-[#ff5a1f] to-orange-400 mx-auto rounded-full"></div>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -38,14 +38,14 @@ export default function ProjectsSection({ projects }) {
                   </div>
                 )}
                 {project.featured && (
-                  <span className="absolute top-4 right-4 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">
+                  <span className="absolute top-4 right-4 bg-[#ff5a1f] text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">
                     Featured
                   </span>
                 )}
               </div>
               
               <div className="p-6 flex flex-col flex-grow">
-                <h3 className="text-xl font-bold text-white mb-2 group-hover:text-blue-400 transition-colors">{project.title}</h3>
+                <h3 className="text-xl font-bold text-white mb-2 group-hover:text-[#ff5a1f] transition-colors">{project.title}</h3>
                 <p className="text-gray-400 text-sm mb-6 flex-grow line-clamp-3">
                   {project.description}
                 </p>
@@ -70,7 +70,7 @@ export default function ProjectsSection({ projects }) {
                     </a>
                   )}
                   {project.liveUrl && (
-                    <a href={project.liveUrl} target="_blank" rel="noreferrer" className="flex items-center gap-2 text-sm text-blue-400 hover:text-blue-300 transition-colors ml-auto">
+                    <a href={project.liveUrl} target="_blank" rel="noreferrer" className="flex items-center gap-2 text-sm text-[#ff5a1f] hover:text-blue-300 transition-colors ml-auto">
                       <ExternalLink className="w-4 h-4" /> Live Demo
                     </a>
                   )}

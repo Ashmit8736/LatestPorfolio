@@ -13,8 +13,8 @@ export default function AboutSection({ profile }) {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl font-bold text-white mb-4">About Me</h2>
-          <div className="w-20 h-1 bg-blue-500 mx-auto rounded-full"></div>
+          <h2 className="text-4xl md:text-5xl font-black bg-gradient-to-r from-[#ff5a1f] to-orange-400 bg-clip-text text-transparent mb-4 uppercase tracking-tighter">About Me</h2>
+          <div className="w-20 h-1 bg-gradient-to-r from-[#ff5a1f] to-orange-400 mx-auto rounded-full"></div>
         </motion.div>
         
         <div className="grid md:grid-cols-2 gap-12 items-center">
@@ -44,7 +44,7 @@ export default function AboutSection({ profile }) {
             className="relative flex items-center justify-center h-[400px]"
           >
             {/* Background Shape */}
-            <div className="absolute inset-0 bg-blue-500/20 rounded-bl-[120px] rounded-tr-[40px] transform -translate-x-4 translate-y-4"></div>
+            <div className="absolute inset-0 bg-[#ff5a1f]/20 rounded-bl-[120px] rounded-tr-[40px] transform -translate-x-4 translate-y-4"></div>
             
             {/* Image Container */}
             <div className="relative w-full h-full overflow-hidden rounded-bl-[120px] rounded-tr-[40px] border-4 border-[#0a0a0a] shadow-2xl z-10">

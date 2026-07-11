@@ -21,8 +21,8 @@ export default function SkillsSection({ skills }) {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl font-bold text-white mb-4">Skills & Technologies</h2>
-          <div className="w-20 h-1 bg-blue-500 mx-auto rounded-full"></div>
+          <h2 className="text-4xl md:text-5xl font-black bg-gradient-to-r from-[#ff5a1f] to-orange-400 bg-clip-text text-transparent mb-4 uppercase tracking-tighter">Skills & Technologies</h2>
+          <div className="w-20 h-1 bg-gradient-to-r from-[#ff5a1f] to-orange-400 mx-auto rounded-full"></div>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
@@ -43,7 +43,7 @@ export default function SkillsSection({ skills }) {
                 {items.map(skill => (
                   <span 
                     key={skill.id} 
-                    className="px-4 py-2 bg-white/5 hover:bg-blue-500/20 hover:text-blue-400 border border-white/10 text-gray-300 rounded-lg text-sm font-medium transition-colors cursor-default"
+                    className="px-4 py-2 bg-white/5 hover:bg-[#ff5a1f]/20 hover:text-[#ff5a1f] border border-white/10 text-gray-300 rounded-lg text-sm font-medium transition-colors cursor-default"
                   >
                     {skill.name}
                   </span>

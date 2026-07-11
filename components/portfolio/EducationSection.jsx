@@ -14,7 +14,7 @@ export default function EducationSection({ education }) {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl font-bold text-white mb-4">Education</h2>
+          <h2 className="text-4xl md:text-5xl font-black bg-gradient-to-r from-[#ff5a1f] to-orange-400 bg-clip-text text-transparent mb-4 uppercase tracking-tighter">Education</h2>
           <div className="w-20 h-1 bg-purple-500 mx-auto rounded-full"></div>
         </motion.div>
 
