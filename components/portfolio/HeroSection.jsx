@@ -6,7 +6,7 @@ export default function HeroSection({ profile }) {
   if (!profile || Object.keys(profile).length === 0) return null;
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden bg-[#0a0a0a]">
+    <section className="relative min-h-screen flex items-center justify-center pt-[60px] pb-10 sm:pt-20 sm:pb-0 overflow-hidden bg-[#0a0a0a]">
       {/* Background Gradients - Adjusted to match the dark/orange theme */}
       <div className="absolute top-0 -left-4 w-96 h-96 bg-[#ff5a1f] rounded-full mix-blend-multiply filter blur-[150px] opacity-10 animate-blob"></div>
       <div className="absolute -bottom-8 right-20 w-96 h-96 bg-[#ff5a1f] rounded-full mix-blend-multiply filter blur-[150px] opacity-10 animate-blob animation-delay-4000"></div>
