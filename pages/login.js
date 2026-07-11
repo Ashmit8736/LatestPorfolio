@@ -51,19 +51,19 @@ export default function Login() {
                 placeholder="••••••" 
               />
             </div>
-            <button type="submit" className="w-full font-medium py-3 rounded-lg bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] text-white hover:opacity-90 transition-opacity border-0">Verify PIN</button>
+            <button type="submit" className="w-full font-medium py-3 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-500 text-white shadow-lg hover:from-blue-700 hover:to-cyan-600 transition-all">Verify PIN</button>
           </form>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label className="block text-sm font-medium text-gray-900 font-semibold mb-1">Email</label>
-              <input required type="email" value={email} onChange={e => setEmail(e.target.value)} className="w-full px-4 py-2 border rounded-lg focus:ring-blue-500 focus:border-blue-500" />
+              <label className="block text-sm font-semibold text-gray-900 mb-1">Email</label>
+              <input required type="email" value={email} onChange={e => setEmail(e.target.value)} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-white/90 text-black font-medium" />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-900 font-semibold mb-1">Password</label>
-              <input required type="password" value={password} onChange={e => setPassword(e.target.value)} className="w-full px-4 py-2 border rounded-lg focus:ring-blue-500 focus:border-blue-500" />
+              <label className="block text-sm font-semibold text-gray-900 mb-1">Password</label>
+              <input required type="password" value={password} onChange={e => setPassword(e.target.value)} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-white/90 text-black font-medium" />
             </div>
-            <button type="submit" className="w-full font-medium py-2 rounded-lg bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] text-white hover:opacity-90 transition-opacity border-0">Login</button>
+            <button type="submit" className="w-full font-medium py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-500 text-white shadow-lg hover:from-blue-700 hover:to-cyan-600 transition-all">Login</button>
           </form>
         )}
       </div>
