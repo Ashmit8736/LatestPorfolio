@@ -21,10 +21,10 @@ export default function List() {
         <h1 className="text-3xl font-bold">Projects</h1>
         <Link href="/admin/projects/new" className="px-4 py-2 rounded bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] text-white hover:opacity-90 transition-opacity border-0">Add New</Link>
       </div>
-      <div className="overflow-x-auto bg-white rounded-lg shadow-sm border">
+      <div className="overflow-x-auto rounded-lg bg-white/30 backdrop-blur-md border border-white/40 shadow-xl">
         <table className="w-full text-left border-collapse">
           <thead>
-            <tr className="bg-gray-100 border-b">
+            <tr className="bg-white/40 border-b border-white/30">
               <th className="p-4 font-semibold text-gray-700">Project Name</th>
               <th className="p-4 font-semibold text-gray-700">Technology</th>
               <th className="p-4 font-semibold text-gray-700">Description</th>
@@ -34,7 +34,7 @@ export default function List() {
           </thead>
           <tbody>
             {items.map(item => (
-              <tr key={item.id} className="border-b hover:bg-gray-50">
+              <tr key={item.id} className="border-b border-white/20 hover:bg-white/20">
                 <td className="p-4 font-medium">{item.title}</td>
                 <td className="p-4 text-sm text-gray-600">{item.techStack}</td>
                 <td className="p-4 text-sm text-gray-600 max-w-xs truncate" title={item.description}>{item.description}</td>

@@ -18,7 +18,7 @@ export default function New() {
   return (
     <AdminLayout>
       <h1 className="text-3xl font-bold mb-6">Add Experience</h1>
-      <form onSubmit={handleSubmit} className="space-y-4 max-w-xl bg-white p-6 rounded-lg shadow-sm border">
+      <form onSubmit={handleSubmit} className="space-y-4 max-w-xl p-6 rounded-lg bg-white/30 backdrop-blur-md border border-white/40 shadow-xl">
         <div><label className="block mb-1 font-medium">Company Name</label><input required className="w-full border p-2 rounded" onChange={e => setFormData({...formData, companyName: e.target.value})} /></div>
         <div><label className="block mb-1 font-medium">Role</label><input required className="w-full border p-2 rounded" onChange={e => setFormData({...formData, role: e.target.value})} /></div>
         <div className="grid grid-cols-2 gap-4">
