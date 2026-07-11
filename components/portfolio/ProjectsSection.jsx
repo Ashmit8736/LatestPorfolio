@@ -29,7 +29,7 @@ export default function ProjectsSection({ projects }) {
               transition={{ duration: 0.5, delay: (index % 3) * 0.1 }}
               className="group flex flex-col bg-white/5 border border-white/10 rounded-2xl overflow-hidden hover:bg-white/10 transition-colors"
             >
-              <div className="relative h-48 bg-gradient-to-tr from-blue-900/40 to-emerald-900/40 border-b border-white/10 overflow-hidden">
+              <div className="relative h-48 bg-gradient-to-tr from-[#ff5a1f]/20 to-orange-900/30 border-b border-white/10 overflow-hidden">
                 {project.imageUrl ? (
                   <img src={project.imageUrl} alt={project.title} className="w-full h-full object-cover opacity-80 group-hover:scale-105 group-hover:opacity-100 transition-all duration-500" />
                 ) : (
@@ -70,7 +70,7 @@ export default function ProjectsSection({ projects }) {
                     </a>
                   )}
                   {project.liveUrl && (
-                    <a href={project.liveUrl} target="_blank" rel="noreferrer" className="flex items-center gap-2 text-sm text-[#ff5a1f] hover:text-blue-300 transition-colors ml-auto">
+                    <a href={project.liveUrl} target="_blank" rel="noreferrer" className="flex items-center gap-2 text-sm text-[#ff5a1f] hover:text-orange-300 transition-colors ml-auto">
                       <ExternalLink className="w-4 h-4" /> Live Demo
                     </a>
                   )}
