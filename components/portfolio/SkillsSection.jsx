@@ -12,7 +12,7 @@ export default function SkillsSection({ skills }) {
   }, {});
 
   return (
-    <section id="skills" className="py-5 md:py-24 bg-[#0a0a0a] relative">
+    <section id="skills" className="scroll-mt-20 py-5 md:py-24 bg-[#0a0a0a] relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}

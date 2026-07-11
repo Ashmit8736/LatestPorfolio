@@ -26,7 +26,7 @@ export default function ContactSection() {
   };
 
   return (
-    <section id="contact" className="py-5 md:py-24 bg-[#0a0a0a] relative">
+    <section id="contact" className="scroll-mt-20 py-5 md:py-24 bg-[#0a0a0a] relative">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-black bg-gradient-to-r from-[#ff5a1f] to-orange-400 bg-clip-text text-transparent mb-4 uppercase tracking-tighter">Get In Touch</h2>

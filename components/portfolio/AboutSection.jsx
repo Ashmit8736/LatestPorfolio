@@ -4,7 +4,7 @@ export default function AboutSection({ profile }) {
   if (!profile || (!profile.about && !profile.shortBio)) return null;
 
   return (
-    <section id="about" className="py-5 md:py-24 bg-[#0a0a0a] relative">
+    <section id="about" className="scroll-mt-20 py-5 md:py-24 bg-[#0a0a0a] relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
