@@ -11,8 +11,17 @@ export default function List() {
 
   const handleDelete = async (id) => {
     if (!confirm('Are you sure?')) return;
-    await fetch(`/api/portfolio/projects/${id}`, { method: 'DELETE' });
-    setItems(items.filter(i => i.id !== id));
+    try {
+      const res = await fetch(`/api/portfolio/projects/${id}`, { method: 'DELETE' });
+      if (res.ok) {
+        setItems(items.filter(i => i.id !== id));
+      } else {
+        const err = await res.json();
+        alert('Failed to delete: ' + (err.message || 'Unknown error'));
+      }
+    } catch (e) {
+      alert('Network error while deleting');
+    }
   };
 
   return (
