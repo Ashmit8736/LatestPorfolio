@@ -14,25 +14,40 @@ export default function Edit() {
     fetch(`/api/portfolio/projects/${id}`).then(res => res.json()).then(data => setFormData(data.data));
   }, [id]);
 
+  
+    const compressImage = (file) => {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = event => {
+          const img = new Image();
+          img.src = event.target.result;
+          img.onload = () => {
+            const canvas = document.createElement('canvas');
+            const maxWidth = 800;
+            const scaleSize = maxWidth / img.width;
+            canvas.width = maxWidth;
+            canvas.height = img.height * scaleSize;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            resolve(canvas.toDataURL('image/jpeg', 0.8));
+          };
+          img.onerror = reject;
+        };
+        reader.onerror = reject;
+      });
+    };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsUploading(true);
     let uploadedUrl = formData.imageUrl || '';
 
     if (imageFile) {
-      const uploadData = new FormData();
-      uploadData.append('image', imageFile);
-
       try {
-        const uploadRes = await fetch('/api/upload', {
-          method: 'POST',
-          body: uploadData,
-        });
-        if (!uploadRes.ok) throw new Error('Upload failed');
-        const { url } = await uploadRes.json();
-        uploadedUrl = url;
+        uploadedUrl = await compressImage(imageFile);
       } catch (err) {
-        alert('Image upload failed: ' + err.message);
+        alert('Image processing failed: ' + err.message);
         setIsUploading(false);
         return;
       }
