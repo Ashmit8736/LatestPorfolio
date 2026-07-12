@@ -31,7 +31,7 @@ export default function ProjectsSection({ projects }) {
             >
               <div className="relative h-48 bg-gradient-to-tr from-[#ff5a1f]/20 to-orange-900/30 border-b border-white/10 overflow-hidden">
                 {project.imageUrl ? (
-                  <img src={project.imageUrl} alt={project.title} className="w-full h-full object-contain opacity-80 group-hover:scale-105 group-hover:opacity-100 transition-all duration-500" />
+                  <img src={project.imageUrl} alt={project.title} className="w-full h-full object-cover opacity-80 group-hover:scale-105 group-hover:opacity-100 transition-all duration-500" />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center text-4xl font-black text-white/10 group-hover:scale-110 transition-transform duration-500">
                     {project.title.substring(0, 2).toUpperCase()}
