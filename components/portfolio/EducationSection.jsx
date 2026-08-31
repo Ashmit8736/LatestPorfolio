@@ -29,7 +29,7 @@ export default function EducationSection({ education }) {
               className="bg-[#111111] border border-[#333]  shadow-xl p-8 rounded-2xl  hover:bg-[#111111] transition-all hover:-translate-y-1"
             >
               <div className="w-12 h-12 bg-[#ff5a1f] rounded-xl flex items-center justify-center mb-6">
-                <GraduationCap className="w-6 h-6 text-[#ff5a1f]" />
+                <GraduationCap className="w-6 h-6 text-white" />
               </div>
               
               <h3 className="text-2xl font-heading font-bold tracking-wider text-white mb-2">{edu.degree}</h3>

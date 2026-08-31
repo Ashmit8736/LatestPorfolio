@@ -21,9 +21,9 @@ export default function HeroSection({ profile }) {
             Available for Work
           </span>
           
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-heading font-bold tracking-widest mb-8 tracking-tighter leading-[1.1] flex flex-col items-center uppercase">
-            <span className="text-white drop-shadow-md">{profile.fullName}</span>
-            <span className="text-[#ff5a1f] drop-shadow-md">{profile.headline}</span>
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-heading font-black tracking-widest mb-8 tracking-tighter leading-[1.1] flex flex-col items-center uppercase">
+            <span className="text-white drop-shadow-lg" style={{ WebkitTextStroke: '4px white' }}>{profile.fullName}</span>
+            <span className="text-[#ff5a1f] drop-shadow-lg mt-2" style={{ WebkitTextStroke: '4px #ff5a1f' }}>{profile.headline}</span>
           </h1>
 
           <p className="text-lg md:text-xl text-white font-bold mb-12 max-w-2xl mx-auto leading-relaxed font-bold">
