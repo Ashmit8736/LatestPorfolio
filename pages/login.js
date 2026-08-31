@@ -32,9 +32,16 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045]">
-      <div className="max-w-md w-full p-8 rounded-xl bg-white/90/30 backdrop-blur-md border border-white/40 shadow-xl">
-        <h2 className="text-3xl font-bold text-center mb-8">{!pinEntered ? 'Security Check' : 'Admin Login'}</h2>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-cyan-300 via-blue-200 to-purple-300 text-white relative overflow-hidden">
+      {/* Floating Orbs Background */}
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none">
+        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-cyan-400/40 blur-3xl animate-float1"></div>
+        <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-purple-400/40 blur-3xl animate-float2"></div>
+        <div className="absolute top-[40%] left-[60%] w-[30%] h-[30%] rounded-full bg-pink-400/30 blur-3xl animate-float3"></div>
+      </div>
+
+      <div className="max-w-md w-full p-8 rounded-2xl bg-[#111111]  border border-[#333] shadow-2xl relative z-10">
+        <h2 className="text-3xl font-heading font-normal tracking-wider text-center mb-8">{!pinEntered ? 'Security Check' : 'Admin Login'}</h2>
         {error && <p className="text-red-600 mb-4 text-center">{error}</p>}
         
         {!pinEntered ? (
@@ -47,7 +54,7 @@ export default function Login() {
                 maxLength="6"
                 value={pin} 
                 onChange={e => setPin(e.target.value)} 
-                className="w-full px-4 py-3 text-center tracking-[0.5em] text-xl font-bold border rounded-lg focus:ring-blue-500 focus:border-blue-500" 
+                className="w-full px-4 py-3 text-center tracking-[0.5em] text-xl font-heading font-normal tracking-wider border rounded-lg focus:ring-blue-500 focus:border-blue-500" 
                 placeholder="••••••" 
               />
             </div>
@@ -57,11 +64,11 @@ export default function Login() {
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <label className="block text-sm font-semibold text-gray-900 mb-1">Email</label>
-              <input required type="email" value={email} onChange={e => setEmail(e.target.value)} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-white/90 text-black font-medium" />
+              <input required type="email" value={email} onChange={e => setEmail(e.target.value)} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-[#111111] text-black font-medium" />
             </div>
             <div>
               <label className="block text-sm font-semibold text-gray-900 mb-1">Password</label>
-              <input required type="password" value={password} onChange={e => setPassword(e.target.value)} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-white/90 text-black font-medium" />
+              <input required type="password" value={password} onChange={e => setPassword(e.target.value)} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-[#111111] text-black font-medium" />
             </div>
             <button type="submit" className="w-full font-medium py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-500 text-white shadow-lg hover:from-blue-700 hover:to-cyan-600 transition-all">Login</button>
           </form>

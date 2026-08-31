@@ -27,23 +27,23 @@ export default function List() {
   return (
     <AdminLayout>
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold">Skills</h1>
-        <Link href="/admin/skills/new" className="px-4 py-2 rounded bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] text-white hover:opacity-90 transition-opacity border-0">Add New</Link>
+        <h1 className="text-3xl font-heading font-normal tracking-wider">Skills</h1>
+        <Link href="/admin/skills/new" className="px-4 py-2 rounded bg-[#ff5a1f] text-white shadow-lg hover:bg-[#e04d19] text-white hover:opacity-90 transition-opacity border-0">Add New</Link>
       </div>
-      <div className="overflow-x-auto rounded-lg bg-white/85 backdrop-blur-xl border border-white/50 shadow-2xl text-gray-900">
+      <div className="overflow-x-auto rounded-lg bg-[#111111]  border border-[#333] shadow-2xl text-white">
         <table className="w-full text-left border-collapse">
           <thead>
             <tr className="bg-gray-100/80 border-b border-gray-300 text-black">
-              <th className="p-4 font-semibold text-gray-900 font-semibold">Skill Name</th>
-              <th className="p-4 font-semibold text-gray-900 font-semibold">Category</th>
-              <th className="p-4 font-semibold text-gray-900 font-semibold text-right">Actions</th>
+              <th className="p-4 font-semibold text-white font-semibold">Skill Name</th>
+              <th className="p-4 font-semibold text-white font-semibold">Category</th>
+              <th className="p-4 font-semibold text-white font-semibold text-right">Actions</th>
             </tr>
           </thead>
           <tbody>
             {items.map(item => (
-              <tr key={item.id} className="border-b border-gray-200 hover:bg-white/60">
+              <tr key={item.id} className="border-b border-gray-200 hover:bg-[#111111]">
                 <td className="p-4 font-medium">{item.name}</td>
-                <td className="p-4 text-sm text-gray-600">
+                <td className="p-4 text-sm text-gray-400">
                   <span className="bg-blue-50 text-blue-700 px-2.5 py-1 rounded-md text-xs font-semibold">{item.category}</span>
                 </td>
                 <td className="p-4 space-x-3 text-right">
@@ -54,7 +54,7 @@ export default function List() {
             ))}
             {items.length === 0 && (
               <tr>
-                <td colSpan="3" className="p-8 text-center text-gray-500">No items found.</td>
+                <td colSpan="3" className="p-8 text-center text-[#ff5a1f]/70">No items found.</td>
               </tr>
             )}
           </tbody>

@@ -27,15 +27,15 @@ export default function List() {
   return (
     <AdminLayout>
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold">Social Links</h1>
-        <Link href="/admin/socials/new" className="px-4 py-2 rounded bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] text-white hover:opacity-90 transition-opacity border-0">Add New</Link>
+        <h1 className="text-3xl font-heading font-normal tracking-wider">Social Links</h1>
+        <Link href="/admin/socials/new" className="px-4 py-2 rounded bg-[#ff5a1f] text-white shadow-lg hover:bg-[#e04d19] text-white hover:opacity-90 transition-opacity border-0">Add New</Link>
       </div>
       <div className="space-y-4">
         {items.map(item => (
           <div key={item.id} className="flex justify-between items-center border p-4 rounded-lg bg-gray-50">
             <div>
-              <p className="font-bold text-lg">{item.platform}</p>
-              <p className="text-gray-600">{item.url}</p>
+              <p className="font-heading font-normal tracking-wider text-lg">{item.platform}</p>
+              <p className="text-gray-400">{item.url}</p>
             </div>
             <div className="space-x-4">
               <Link href={`/admin/socials/${item.id}/edit`} className="text-blue-600 hover:underline">Edit</Link>

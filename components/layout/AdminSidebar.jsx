@@ -13,13 +13,13 @@ export default function AdminSidebar({ onNavigate }) {
   ];
 
   return (
-    <aside className="w-full h-full bg-white/85 backdrop-blur-xl border-r border-white/50 shadow-2xl text-gray-900 flex flex-col pt-16 md:pt-0 overflow-y-auto">
+    <aside className="w-full h-full bg-[#111111]  border-r border-[#333] shadow-2xl text-white flex flex-col pt-16 md:pt-0 overflow-y-auto">
       <div className="p-6 hidden md:block">
-        <h2 className="text-2xl font-bold">Admin Panel</h2>
+        <h2 className="text-2xl font-heading font-normal tracking-wider">Admin Panel</h2>
       </div>
       <nav className="mt-2 md:mt-6 flex-1">
         {links.map(link => (
-          <Link key={link.name} href={link.path} onClick={onNavigate} className="block px-6 py-3 hover:bg-white/60 hover:text-gray-900 transition">
+          <Link key={link.name} href={link.path} onClick={onNavigate} className="block px-6 py-3 hover:bg-gradient-to-r hover:bg-[#e04d19] hover:text-white transition-all border-l-4 border-transparent hover:border-[#333]">
             {link.name}
           </Link>
         ))}
@@ -27,7 +27,7 @@ export default function AdminSidebar({ onNavigate }) {
       <div className="p-6 mt-auto">
         <button onClick={() => {
           fetch('/api/auth/logout', { method: 'POST' }).then(() => window.location.href = '/login');
-        }} className="w-full bg-red-600 hover:bg-red-700 py-2 rounded transition">Logout</button>
+        }} className="w-full bg-[#111111] hover:bg-red-500/80  border border-[#333] text-white hover:text-white py-2 rounded-lg transition-all font-semibold shadow-sm">Logout</button>
       </div>
     </aside>
   );

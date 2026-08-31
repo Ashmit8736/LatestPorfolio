@@ -17,8 +17,8 @@ export default function New() {
 
   return (
     <AdminLayout>
-      <h1 className="text-3xl font-bold mb-6">Add Skill</h1>
-      <form onSubmit={handleSubmit} className="space-y-4 max-w-xl p-6 rounded-lg bg-white/85 backdrop-blur-xl border border-white/50 shadow-2xl text-gray-900">
+      <h1 className="text-3xl font-heading font-normal tracking-wider mb-6">Add Skill</h1>
+      <form onSubmit={handleSubmit} className="space-y-4 max-w-xl p-6 rounded-lg bg-[#111111]  border border-[#333] shadow-2xl text-white">
         <div><label className="block mb-1 font-medium">Skill Name</label><input required className="w-full border p-2 rounded" placeholder="e.g. React.js" onChange={e => setFormData({...formData, name: e.target.value})} /></div>
         <div>
           <label className="block mb-1 font-medium">Category (Optional)</label>

@@ -25,11 +25,11 @@ export default function Navbar() {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
-      className="fixed top-0 w-full z-50 bg-[#0a0a0a]/70 backdrop-blur-xl border-b border-white/5"
+      className="fixed top-0 w-full z-50 bg-[#111111]  border-b border-[#333] shadow-md"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
-          <Link href="/" className="text-2xl font-black bg-gradient-to-r from-[#ff5a1f] to-orange-400 bg-clip-text text-transparent uppercase tracking-tight">
+          <Link href="/" className="text-2xl font-heading font-normal tracking-widest bg-[#ff5a1f] bg-clip-text text-transparent uppercase tracking-tight">
             Portfolio
           </Link>
           
@@ -39,7 +39,7 @@ export default function Navbar() {
               <a 
                 key={item} 
                 href={`#${item.toLowerCase()}`} 
-                className="text-sm font-medium text-gray-400 hover:text-white transition-colors tracking-wide"
+                className="text-base font-semibold text-white hover:text-[#ff5a1f] transition-colors tracking-wide"
               >
                 {item}
               </a>
@@ -47,7 +47,7 @@ export default function Navbar() {
             {showAdmin && (
               <Link 
                 href="/login" 
-                className="ml-4 px-4 py-2 text-xs font-bold uppercase tracking-wider text-[#ff5a1f] border border-[#ff5a1f]/50 rounded-lg hover:bg-[#ff5a1f]/10 transition-colors"
+                className="ml-4 px-4 py-2 text-xs font-heading font-normal tracking-wider uppercase tracking-wider text-[#ff5a1f] border border-purple-400 rounded-lg hover:bg-purple-600 hover:text-white transition-colors"
               >
                 Only Admin
               </Link>
@@ -58,7 +58,7 @@ export default function Navbar() {
           <div className="md:hidden flex items-center">
             <button 
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="text-gray-300 hover:text-white focus:outline-none"
+              className="text-white hover:text-[#ff5a1f] focus:outline-none"
             >
               {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
             </button>
@@ -73,7 +73,7 @@ export default function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-[#0a0a0a] border-b border-white/10 overflow-hidden"
+            className="md:hidden bg-[#111111]  border-b border-[#333] overflow-hidden shadow-xl"
           >
             <div className="px-4 pt-4 pb-6 space-y-5 flex flex-col">
               {navItems.map((item) => (
@@ -81,7 +81,7 @@ export default function Navbar() {
                   key={item} 
                   href={`#${item.toLowerCase()}`} 
                   onClick={() => setIsMenuOpen(false)}
-                  className="text-lg font-medium text-gray-300 hover:text-white transition-colors tracking-wide"
+                  className="text-lg font-semibold text-white hover:text-[#ff5a1f] transition-colors tracking-wide"
                 >
                   {item}
                 </a>
@@ -90,7 +90,7 @@ export default function Navbar() {
                 <Link 
                   href="/login" 
                   onClick={() => setIsMenuOpen(false)}
-                  className="inline-block mt-4 px-6 py-3 w-max text-sm font-bold uppercase tracking-wider text-[#ff5a1f] border border-[#ff5a1f]/50 rounded-lg hover:bg-[#ff5a1f]/10 transition-colors"
+                  className="inline-block mt-4 px-6 py-3 w-max text-sm font-heading font-normal tracking-wider uppercase tracking-wider text-[#ff5a1f] border border-purple-400 rounded-lg hover:bg-purple-600 hover:text-white transition-colors"
                 >
                   Only Admin
                 </Link>

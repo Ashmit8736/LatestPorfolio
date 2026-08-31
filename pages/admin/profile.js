@@ -26,8 +26,8 @@ export default function Profile() {
 
   return (
     <AdminLayout>
-      <h1 className="text-3xl font-bold mb-6">Manage Profile</h1>
-      <form onSubmit={handleSubmit} className="space-y-4 max-w-2xl p-6 rounded-lg bg-white/85 backdrop-blur-xl border border-white/50 shadow-2xl text-gray-900">
+      <h1 className="text-3xl font-heading font-normal tracking-wider mb-6">Manage Profile</h1>
+      <form onSubmit={handleSubmit} className="space-y-4 max-w-2xl p-6 rounded-lg bg-[#111111]  border border-[#333] shadow-2xl text-white">
         <div className="grid grid-cols-2 gap-4">
           <div><label className="block mb-1 font-medium">Full Name</label><input required value={formData.fullName || ''} onChange={e => setFormData({...formData, fullName: e.target.value})} className="w-full border p-2 rounded" /></div>
           <div><label className="block mb-1 font-medium">Headline</label><input required value={formData.headline || ''} onChange={e => setFormData({...formData, headline: e.target.value})} className="w-full border p-2 rounded" /></div>
