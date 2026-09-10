@@ -1,9 +1,22 @@
 import { motion } from 'framer-motion';
+import { Code2, Layout, Server, Database, Wrench, TestTube2, Braces } from 'lucide-react';
+
+const CATEGORY_ICONS = {
+  Languages: Braces,
+  Frontend: Layout,
+  Backend: Server,
+  Databases: Database,
+  'DevOps / Tools': Wrench,
+  Testing: TestTube2,
+};
+
+function getIcon(category) {
+  return CATEGORY_ICONS[category] || Code2;
+}
 
 export default function SkillsSection({ skills }) {
   if (!skills || skills.length === 0) return null;
 
-  // Group skills by category
   const groupedSkills = skills.reduce((acc, skill) => {
     const category = skill.category || 'Other';
     if (!acc[category]) acc[category] = [];
@@ -12,45 +25,58 @@ export default function SkillsSection({ skills }) {
   }, {});
 
   return (
-    <section id="skills" className="scroll-mt-20 py-5 md:py-24 bg-transparent relative">
+    <section id="skills" className="scroll-mt-24 py-16 md:py-24 bg-[#F7F1E6] relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-12"
         >
-          <h2 className="text-4xl md:text-5xl font-heading font-bold tracking-widest bg-[#ff5a1f] bg-clip-text text-transparent mb-4 uppercase tracking-tighter">Skills & Technologies</h2>
-          <div className="w-20 h-1 bg-[#ff5a1f] mx-auto rounded-full"></div>
+          <div className="flex items-center gap-2 justify-center mb-4">
+            <span className="w-2.5 h-2.5 rounded-full bg-[#1C1712]"></span>
+            <span className="text-sm font-semibold text-[#5C5346] uppercase tracking-wider">My Skillset</span>
+          </div>
+          <h2 className="text-4xl md:text-5xl font-heading font-extrabold text-[#1C1712]">
+            <span className="text-[#F5A623]">Skills</span> & Technologies
+          </h2>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {Object.entries(groupedSkills).map(([category, items], idx) => (
-            <motion.div 
-              key={category}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="bg-[#111111] border border-[#333]  shadow-xl p-8 rounded-2xl "
-            >
-              <h3 className="text-xl font-heading font-bold tracking-wider text-white mb-6 flex items-center gap-3">
-                <div className="w-2 h-2 rounded-full bg-blue-500"></div>
-                {category}
-              </h3>
-              <div className="flex flex-wrap gap-3">
-                {items.map(skill => (
-                  <span 
-                    key={skill.id} 
-                    className="px-4 py-2 bg-[#111111] hover:bg-[#ff5a1f] hover:text-[#ff5a1f] border border-[#333]  shadow-xl text-white font-bold rounded-lg text-sm font-bold transition-colors cursor-default"
-                  >
-                    {skill.name}
-                  </span>
-                ))}
-              </div>
-            </motion.div>
-          ))}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+          {Object.entries(groupedSkills).map(([category, items], idx) => {
+            const Icon = getIcon(category);
+            return (
+              <motion.div
+                key={category}
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: idx * 0.08 }}
+                className="bg-white border border-[#E8DFCE] rounded-2xl p-6 sm:p-7 shadow-[0_10px_25px_-15px_rgba(28,23,18,0.15)] hover:-translate-y-1 hover:border-[#F5A623]/60 transition-all"
+              >
+                <div className="flex items-center gap-3 mb-5">
+                  <div className="w-11 h-11 rounded-xl bg-[#F7F1E6] flex items-center justify-center">
+                    <Icon className="w-5 h-5 text-[#1C1712]" />
+                  </div>
+                  <h3 className="text-lg font-heading font-bold text-[#1C1712]">{category}</h3>
+                </div>
+                <div className="h-1 w-full bg-[#F1E9D8] rounded-full overflow-hidden mb-5">
+                  <div className="h-full bg-[#F5A623] rounded-full w-full"></div>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {items.map(skill => (
+                    <span
+                      key={skill.id}
+                      className="px-3.5 py-2 bg-[#F7F1E6] hover:bg-[#F5A623] hover:text-[#1C1712] text-[#5C5346] font-semibold rounded-lg text-sm transition-colors cursor-default"
+                    >
+                      {skill.name}
+                    </span>
+                  ))}
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>

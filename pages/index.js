@@ -3,10 +3,13 @@ import { useEffect } from 'react';
 import PublicLayout from '../components/layout/PublicLayout';
 import HeroSection from '../components/portfolio/HeroSection';
 import AboutSection from '../components/portfolio/AboutSection';
-import ExperienceSection from '../components/portfolio/ExperienceSection';
-import EducationSection from '../components/portfolio/EducationSection';
+import ServicesSection from '../components/portfolio/ServicesSection';
+import ServiceDetailSection from '../components/portfolio/ServiceDetailSection';
+import IndustriesSection from '../components/portfolio/IndustriesSection';
+import JourneySection from '../components/portfolio/JourneySection';
 import ProjectsSection from '../components/portfolio/ProjectsSection';
 import SkillsSection from '../components/portfolio/SkillsSection';
+import FaqSection from '../components/portfolio/FaqSection';
 import ContactSection from '../components/portfolio/ContactSection';
 import { prisma } from '../lib/prisma';
 
@@ -28,12 +31,15 @@ export default function Home({ profile, experiences, education, projects, skills
         <meta name="description" content={profile?.headline || 'My Portfolio'} />
       </Head>
       <HeroSection profile={profile} />
-      <AboutSection profile={profile} />
-      <ExperienceSection experiences={experiences} />
-      <EducationSection education={education} />
+      <AboutSection profile={profile} experiences={experiences} projects={projects} skills={skills} />
+      <ServicesSection />
+      <ServiceDetailSection />
+      <IndustriesSection />
+      <JourneySection experiences={experiences} education={education} />
       <ProjectsSection projects={projects} />
       <SkillsSection skills={skills} />
-      <ContactSection />
+      <FaqSection />
+      <ContactSection profile={profile} socials={socials} />
     </PublicLayout>
   );
 }
