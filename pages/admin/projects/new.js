@@ -55,7 +55,15 @@ export default function New() {
     
     setIsUploading(false);
     if (res.ok) window.location.href = '/admin/projects';
-    else alert('Error saving');
+    else {
+      const err = await res.json().catch(() => null);
+      if (res.status === 401) {
+        alert('Your session has expired. Please log in again.');
+        window.location.href = '/login';
+      } else {
+        alert(err?.message || 'Error saving');
+      }
+    }
   };
 
   return (
