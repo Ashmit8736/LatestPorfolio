@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Eye, EyeOff } from 'lucide-react';
 
 export default function Login() {
   const [pin, setPin] = useState('');
@@ -8,6 +9,8 @@ export default function Login() {
   const [error, setError] = useState('');
   const [verifyingPin, setVerifyingPin] = useState(false);
   const [loggingIn, setLoggingIn] = useState(false);
+  const [showPin, setShowPin] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handlePinSubmit = (e) => {
     e.preventDefault();
@@ -71,15 +74,25 @@ export default function Login() {
             <form onSubmit={handlePinSubmit} className="space-y-6">
               <div>
                 <label className="admin-label text-center">Enter 6-digit Security PIN</label>
-                <input
-                  required
-                  type="password"
-                  maxLength="6"
-                  value={pin}
-                  onChange={e => setPin(e.target.value)}
-                  className="admin-input text-center text-2xl tracking-[0.5em] font-heading"
-                  placeholder="••••••"
-                />
+                <div className="relative">
+                  <input
+                    required
+                    type={showPin ? 'text' : 'password'}
+                    maxLength="6"
+                    value={pin}
+                    onChange={e => setPin(e.target.value)}
+                    className="admin-input text-center text-2xl tracking-[0.5em] font-heading pr-12"
+                    placeholder="••••••"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPin(v => !v)}
+                    aria-label={showPin ? 'Hide PIN' : 'Show PIN'}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted hover:text-ink transition-colors"
+                  >
+                    {showPin ? <EyeOff size={20} /> : <Eye size={20} />}
+                  </button>
+                </div>
               </div>
               <button type="submit" disabled={verifyingPin} className="admin-btn admin-btn-primary admin-btn-block">
                 {verifyingPin ? 'Verifying…' : 'Verify PIN'}
@@ -93,7 +106,24 @@ export default function Login() {
               </div>
               <div>
                 <label className="admin-label">Password</label>
-                <input required type="password" value={password} onChange={e => setPassword(e.target.value)} className="admin-input" disabled={loggingIn} />
+                <div className="relative">
+                  <input
+                    required
+                    type={showPassword ? 'text' : 'password'}
+                    value={password}
+                    onChange={e => setPassword(e.target.value)}
+                    className="admin-input pr-12"
+                    disabled={loggingIn}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(v => !v)}
+                    aria-label={showPassword ? 'Hide password' : 'Show password'}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted hover:text-ink transition-colors"
+                  >
+                    {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                  </button>
+                </div>
               </div>
               <button type="submit" disabled={loggingIn} className="admin-btn admin-btn-primary admin-btn-block">
                 {loggingIn ? 'Logging in…' : 'Login'}
