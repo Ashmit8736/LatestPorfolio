@@ -14,7 +14,7 @@ export default function ProjectsSection({ projects }) {
   });
 
   return (
-    <section id="projects" className="scroll-mt-20 py-16 md:py-24 bg-[#F7F1E6] relative overflow-hidden">
+    <section id="projects" className="scroll-mt-20 py-12 md:py-20 bg-[#F7F1E6] relative overflow-hidden">
       <div className="absolute inset-0 z-0 pointer-events-none">
         <div className="absolute top-[10%] left-[10%] w-[60%] h-[60%] rounded-full bg-[#F5A623]/10 blur-[150px]"></div>
         <div className="absolute bottom-[10%] right-[10%] w-[50%] h-[50%] rounded-full bg-[#F5A623]/10 blur-[120px]"></div>
@@ -25,7 +25,7 @@ export default function ProjectsSection({ projects }) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-12"
+          className="text-center mb-8 md:mb-12"
         >
           <h2 className="text-4xl md:text-5xl font-heading font-extrabold text-[#1C1712] mb-4">
             Featured <span className="text-[#F5A623]">Projects</span>

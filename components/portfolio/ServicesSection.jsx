@@ -9,7 +9,7 @@ export default function ServicesSection({ services }) {
   if (!services || services.length === 0) return null;
 
   return (
-    <section id="services" className="scroll-mt-24 py-16 md:py-24 bg-[#F7F1E6] relative">
+    <section id="services" className="scroll-mt-24 py-12 md:py-20 bg-[#F7F1E6] relative">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -27,7 +27,7 @@ export default function ServicesSection({ services }) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="text-4xl md:text-5xl font-heading font-extrabold text-[#1C1712] text-center mb-12"
+          className="text-4xl md:text-5xl font-heading font-extrabold text-[#1C1712] text-center mb-8 md:mb-12"
         >
           How I Bring <span className="text-[#F5A623]">Ideas to Life</span>
         </motion.h2>

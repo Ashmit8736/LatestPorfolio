@@ -29,14 +29,14 @@ export default function FaqSection() {
   const [openIndex, setOpenIndex] = useState(1);
 
   return (
-    <section className="scroll-mt-24 py-16 md:py-24 bg-[#1C1712] relative">
+    <section className="scroll-mt-24 py-12 md:py-20 bg-[#1C1712] relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="mb-12"
+          className="mb-8 md:mb-12"
         >
           <div className="flex items-center gap-2 mb-4">
             <span className="w-2.5 h-2.5 rounded-full bg-[#F5A623]"></span>

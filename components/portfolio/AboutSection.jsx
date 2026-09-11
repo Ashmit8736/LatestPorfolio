@@ -21,9 +21,9 @@ export default function AboutSection({ profile, experiences = [], projects = [],
   ].filter(Boolean);
 
   return (
-    <section id="about" className="scroll-mt-24 py-16 md:py-24 bg-[#1C1712] relative overflow-hidden">
+    <section id="about" className="scroll-mt-24 py-12 md:py-20 bg-[#1C1712] relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
+        <div className="grid md:grid-cols-2 gap-12 items-center mb-8 md:mb-16">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}

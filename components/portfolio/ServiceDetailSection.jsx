@@ -34,14 +34,14 @@ export default function ServiceDetailSection({ detail }) {
   const checklist = (detail.checklist || '').split(',').map(t => t.trim()).filter(Boolean);
 
   return (
-    <section className="scroll-mt-24 py-16 md:py-24 bg-[#F7F1E6] relative">
+    <section className="scroll-mt-24 py-12 md:py-20 bg-[#F7F1E6] relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="relative w-full aspect-[16/8] rounded-3xl overflow-hidden shadow-[0_20px_50px_-20px_rgba(28,23,18,0.3)] mb-12"
+          className="relative w-full aspect-[16/8] rounded-3xl overflow-hidden shadow-[0_20px_50px_-20px_rgba(28,23,18,0.3)] mb-8 md:mb-12"
         >
           <VideoPreview mediaUrl={detail.mediaUrl} mediaType={detail.mediaType} />
         </motion.div>
@@ -51,7 +51,7 @@ export default function ServiceDetailSection({ detail }) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="mb-10"
+          className="mb-6 md:mb-10"
         >
           <h2 className="text-3xl sm:text-4xl font-heading font-extrabold text-[#1C1712] mb-6">
             {detail.heading}

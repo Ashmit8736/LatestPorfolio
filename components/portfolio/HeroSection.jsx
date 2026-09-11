@@ -34,7 +34,7 @@ export default function HeroSection({ profile, socials = [] }) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-12"
+          className="text-center mb-8 md:mb-12"
         >
           <span className="inline-flex items-center gap-2 py-2 px-5 rounded-full bg-white text-[#1C1712] text-sm font-heading font-semibold tracking-wider mb-6 border border-[#E8DFCE] shadow-sm uppercase">
             <span className="w-2 h-2 rounded-full bg-[#F5A623] animate-pulse"></span>

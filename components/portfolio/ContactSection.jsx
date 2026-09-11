@@ -40,9 +40,9 @@ export default function ContactSection({ profile, socials = [] }) {
   };
 
   return (
-    <section id="contact" className="scroll-mt-24 py-16 md:py-24 bg-[#F7F1E6] relative">
+    <section id="contact" className="scroll-mt-24 py-12 md:py-20 bg-[#F7F1E6] relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
+        <div className="text-center mb-8 md:mb-16">
           <div className="flex items-center gap-2 justify-center mb-4">
             <span className="w-2.5 h-2.5 rounded-full bg-[#1C1712]"></span>
             <span className="text-sm font-semibold text-[#5C5346] uppercase tracking-wider">Contact Me</span>

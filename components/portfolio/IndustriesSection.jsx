@@ -12,14 +12,14 @@ export default function IndustriesSection({ industries }) {
   if (!industries || industries.length === 0) return null;
 
   return (
-    <section className="scroll-mt-24 py-16 md:py-24 bg-[#F7F1E6] relative">
+    <section className="scroll-mt-24 py-12 md:py-20 bg-[#F7F1E6] relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="mb-10"
+          className="mb-6 md:mb-10"
         >
           <h2 className="text-3xl sm:text-4xl font-heading font-extrabold text-[#1C1712] mb-4">
             Top 8 Industries I Cover <span className="text-[#F5A623]">in App Development</span>
