@@ -30,7 +30,7 @@ export default function Home({ profile, experiences, education, projects, skills
         <title>{profile?.fullName || 'Portfolio'}</title>
         <meta name="description" content={profile?.headline || 'My Portfolio'} />
       </Head>
-      <HeroSection profile={profile} />
+      <HeroSection profile={profile} socials={socials} />
       <AboutSection profile={profile} experiences={experiences} projects={projects} skills={skills} />
       <ServicesSection services={services} />
       <ServiceDetailSection detail={serviceDetail} />

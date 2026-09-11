@@ -9,15 +9,20 @@ const STICKERS = [
   { label: 'MySQL', className: 'bottom-8 -right-4 sm:-right-10 bg-[#F5A623] text-[#1C1712] -rotate-3' },
 ];
 
-const DUMMY_SOCIALS = [
-  { key: 'facebook', Icon: FacebookIcon },
-  { key: 'twitter', Icon: TwitterIcon },
-  { key: 'pinterest', Icon: PinterestIcon },
-  { key: 'instagram', Icon: InstagramIcon },
+const FOLLOW_PLATFORMS = [
+  { key: 'facebook', match: 'facebook', Icon: FacebookIcon },
+  { key: 'twitter', match: 'twitter', Icon: TwitterIcon },
+  { key: 'pinterest', match: 'pinterest', Icon: PinterestIcon },
+  { key: 'instagram', match: 'instagram', Icon: InstagramIcon },
 ];
 
-export default function HeroSection({ profile }) {
+export default function HeroSection({ profile, socials = [] }) {
   if (!profile || Object.keys(profile).length === 0) return null;
+
+  const followLinks = FOLLOW_PLATFORMS.map(p => ({
+    ...p,
+    url: socials.find(s => (s.platform || '').toLowerCase().includes(p.match))?.url,
+  }));
 
   return (
     <section className="relative min-h-screen flex items-center justify-center pt-32 pb-16 sm:pt-40 sm:pb-10 overflow-hidden bg-[#F7F1E6]">
@@ -52,8 +57,16 @@ export default function HeroSection({ profile }) {
           >
             <span className="text-sm font-semibold text-[#5C5346]">Follow Me On</span>
             <div className="flex gap-3">
-              {DUMMY_SOCIALS.map(({ key, Icon }) => (
-                <a key={key} href="#" className="w-10 h-10 rounded-full bg-white border border-[#E8DFCE] flex items-center justify-center text-[#1C1712] hover:bg-[#1C1712] hover:text-white transition-colors">
+              {followLinks.map(({ key, Icon, url }) => (
+                <a
+                  key={key}
+                  href={url || '#'}
+                  target={url ? '_blank' : undefined}
+                  rel={url ? 'noreferrer' : undefined}
+                  aria-disabled={!url}
+                  onClick={e => { if (!url) e.preventDefault(); }}
+                  className={`w-10 h-10 rounded-full bg-white border border-[#E8DFCE] flex items-center justify-center text-[#1C1712] transition-colors ${url ? 'hover:bg-[#1C1712] hover:text-white cursor-pointer' : 'opacity-40 cursor-not-allowed'}`}
+                >
                   <Icon className="w-4 h-4" />
                 </a>
               ))}
