@@ -2,15 +2,17 @@ import { useState, useEffect } from 'react';
 import AdminLayout from '../../components/layout/AdminLayout';
 import Loader3D from '../../components/common/Loader3D';
 
+const EMPTY = { heading: '', paragraph1: '', paragraph2: '', checklist: '', mediaUrl: '', mediaType: 'image', cardImage1: '', cardImage2: '' };
+
 export default function ServiceDetail() {
-  const [formData, setFormData] = useState({ heading: '', paragraph1: '', paragraph2: '', checklist: '', mediaUrl: '', mediaType: 'image' });
+  const [formData, setFormData] = useState(EMPTY);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const [uploadingMedia, setUploadingMedia] = useState(false);
+  const [uploadingField, setUploadingField] = useState(null);
 
   useEffect(() => {
     fetch('/api/portfolio/service-detail').then(res => res.json()).then(data => {
-      if (data.data) setFormData({ heading: '', paragraph1: '', paragraph2: '', checklist: '', mediaUrl: '', mediaType: 'image', ...data.data });
+      if (data.data) setFormData({ ...EMPTY, ...data.data });
       setLoading(false);
     });
   }, []);
@@ -18,7 +20,7 @@ export default function ServiceDetail() {
   const handleMediaChange = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
-    setUploadingMedia(true);
+    setUploadingField('media');
     try {
       const body = new FormData();
       body.append('image', file);
@@ -32,7 +34,25 @@ export default function ServiceDetail() {
     } catch {
       alert('Upload failed. Please try again.');
     } finally {
-      setUploadingMedia(false);
+      setUploadingField(null);
+    }
+  };
+
+  const handleCardImageChange = (field) => async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    setUploadingField(field);
+    try {
+      const body = new FormData();
+      body.append('image', file);
+      const res = await fetch('/api/upload', { method: 'POST', body });
+      const data = await res.json();
+      if (res.ok) setFormData(f => ({ ...f, [field]: data.url }));
+      else alert('Upload failed: ' + (data.error || 'Unknown error'));
+    } catch {
+      alert('Upload failed. Please try again.');
+    } finally {
+      setUploadingField(null);
     }
   };
 
@@ -62,6 +82,8 @@ export default function ServiceDetail() {
 
   if (loading) return <AdminLayout><div className="admin-card"><Loader3D label="Loading" /></div></AdminLayout>;
 
+  const anyUploading = !!uploadingField;
+
   return (
     <AdminLayout>
       <div className="admin-header">
@@ -73,7 +95,7 @@ export default function ServiceDetail() {
       </div>
       <form onSubmit={handleSubmit} className="admin-card admin-form max-w-3xl">
         <div>
-          <label className="admin-label">Photo or Video</label>
+          <label className="admin-label">Main Photo or Video</label>
           <div className="flex flex-col sm:flex-row gap-4 items-start">
             {formData.mediaUrl && (
               formData.mediaType === 'video' ? (
@@ -83,9 +105,9 @@ export default function ServiceDetail() {
               )
             )}
             <div className="flex-1 w-full">
-              <input type="file" accept="image/*,video/*" onChange={handleMediaChange} disabled={uploadingMedia} className="admin-input" />
+              <input type="file" accept="image/*,video/*" onChange={handleMediaChange} disabled={anyUploading} className="admin-input" />
               <p className="text-xs text-muted mt-1.5">Accepted formats: JPG, PNG, or WEBP for a photo; MP4 or WEBM for a video. Landscape 16:8 works best (under 20MB).</p>
-              {uploadingMedia && <p className="text-xs text-accent mt-1 font-semibold">Uploading…</p>}
+              {uploadingField === 'media' && <p className="text-xs text-accent mt-1 font-semibold">Uploading…</p>}
             </div>
           </div>
         </div>
@@ -105,7 +127,29 @@ export default function ServiceDetail() {
           <label className="admin-label">"Services Include" Checklist (comma separated)</label>
           <textarea required rows="3" className="admin-input" value={formData.checklist} onChange={e => setFormData({ ...formData, checklist: e.target.value })}></textarea>
         </div>
-        <button type="submit" disabled={saving || uploadingMedia} className="admin-btn admin-btn-primary admin-btn-block">
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-line">
+          <div className="pt-4">
+            <label className="admin-label">"Our Services" Card Image (light card)</label>
+            {formData.cardImage1 && (
+              <img src={formData.cardImage1} alt="Our Services preview" className="w-full h-28 object-cover rounded-lg border border-line mb-2" />
+            )}
+            <input type="file" accept="image/*" onChange={handleCardImageChange('cardImage1')} disabled={anyUploading} className="admin-input" />
+            <p className="text-xs text-muted mt-1.5">JPG, PNG, or WEBP. Square-ish works best (under 5MB).</p>
+            {uploadingField === 'cardImage1' && <p className="text-xs text-accent mt-1 font-semibold">Uploading…</p>}
+          </div>
+          <div className="pt-4">
+            <label className="admin-label">"User Research" Card Image (dark card)</label>
+            {formData.cardImage2 && (
+              <img src={formData.cardImage2} alt="User Research preview" className="w-full h-28 object-cover rounded-lg border border-line mb-2" />
+            )}
+            <input type="file" accept="image/*" onChange={handleCardImageChange('cardImage2')} disabled={anyUploading} className="admin-input" />
+            <p className="text-xs text-muted mt-1.5">JPG, PNG, or WEBP. Square-ish works best (under 5MB).</p>
+            {uploadingField === 'cardImage2' && <p className="text-xs text-accent mt-1 font-semibold">Uploading…</p>}
+          </div>
+        </div>
+
+        <button type="submit" disabled={saving || anyUploading} className="admin-btn admin-btn-primary admin-btn-block">
           {saving ? 'Saving…' : 'Save'}
         </button>
       </form>

@@ -85,19 +85,24 @@ export default function ServiceDetailSection({ detail }) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="bg-white border border-[#E8DFCE] rounded-2xl p-6 aspect-[4/3] flex flex-col justify-between shadow-[0_10px_25px_-15px_rgba(28,23,18,0.15)]"
+            className="relative bg-white border border-[#E8DFCE] rounded-2xl p-6 aspect-[4/3] flex flex-col justify-between shadow-[0_10px_25px_-15px_rgba(28,23,18,0.15)] overflow-hidden"
           >
-            <div className="flex gap-2 mb-4">
+            {detail.cardImage1 && (
+              <img src={detail.cardImage1} alt="Our Services" className="absolute inset-0 w-full h-full object-cover" />
+            )}
+            <div className={`relative flex gap-2 mb-4 ${detail.cardImage1 ? 'z-10' : ''}`}>
               <span className="text-xs font-semibold text-[#5C5346] bg-[#F7F1E6] px-3 py-1 rounded-full">Our Services</span>
             </div>
-            <div className="flex-grow flex items-center justify-center">
-              <div className="grid grid-cols-3 gap-2 w-full max-w-[180px]">
-                {Array.from({ length: 6 }).map((_, i) => (
-                  <div key={i} className="h-8 rounded-md bg-[#F1E9D8]"></div>
-                ))}
+            {!detail.cardImage1 && (
+              <div className="flex-grow flex items-center justify-center">
+                <div className="grid grid-cols-3 gap-2 w-full max-w-[180px]">
+                  {Array.from({ length: 6 }).map((_, i) => (
+                    <div key={i} className="h-8 rounded-md bg-[#F1E9D8]"></div>
+                  ))}
+                </div>
               </div>
-            </div>
-            <p className="text-sm text-[#5C5346] font-medium mt-4">Planning & wireframes for every build</p>
+            )}
+            <p className={`relative text-sm font-medium mt-4 ${detail.cardImage1 ? 'z-10 text-white bg-[#1C1712]/70 backdrop-blur-sm px-3 py-1.5 rounded-lg w-fit' : 'text-[#5C5346]'}`}>Planning & wireframes for every build</p>
           </motion.div>
 
           <motion.div
@@ -105,17 +110,22 @@ export default function ServiceDetailSection({ detail }) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="bg-[#1C1712] rounded-2xl p-6 aspect-[4/3] flex flex-col justify-between shadow-[0_10px_25px_-15px_rgba(28,23,18,0.3)]"
+            className="relative bg-[#1C1712] rounded-2xl p-6 aspect-[4/3] flex flex-col justify-between shadow-[0_10px_25px_-15px_rgba(28,23,18,0.3)] overflow-hidden"
           >
-            <span className="text-xs font-semibold text-[#F5A623] bg-white/10 px-3 py-1 rounded-full w-fit">User Research</span>
-            <div className="flex-grow flex items-center justify-center">
-              <div className="flex gap-2">
-                {Array.from({ length: 4 }).map((_, i) => (
-                  <div key={i} className="w-9 h-9 rounded-full bg-white/10 border border-white/20"></div>
-                ))}
+            {detail.cardImage2 && (
+              <img src={detail.cardImage2} alt="User Research" className="absolute inset-0 w-full h-full object-cover opacity-60" />
+            )}
+            <span className="relative z-10 text-xs font-semibold text-[#F5A623] bg-white/10 px-3 py-1 rounded-full w-fit">User Research</span>
+            {!detail.cardImage2 && (
+              <div className="flex-grow flex items-center justify-center">
+                <div className="flex gap-2">
+                  {Array.from({ length: 4 }).map((_, i) => (
+                    <div key={i} className="w-9 h-9 rounded-full bg-white/10 border border-white/20"></div>
+                  ))}
+                </div>
               </div>
-            </div>
-            <p className="text-sm text-[#C9BFAE] font-medium mt-4">Understanding real user needs before build</p>
+            )}
+            <p className="relative z-10 text-sm text-[#C9BFAE] font-medium mt-4">Understanding real user needs before build</p>
           </motion.div>
         </div>
       </div>
