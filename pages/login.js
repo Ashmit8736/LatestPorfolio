@@ -6,29 +6,46 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [verifyingPin, setVerifyingPin] = useState(false);
+  const [loggingIn, setLoggingIn] = useState(false);
 
   const handlePinSubmit = (e) => {
     e.preventDefault();
-    if (pin === process.env.NEXT_PUBLIC_ADMIN_PIN) {
-      setPinEntered(true);
-      setEmail(process.env.NEXT_PUBLIC_ADMIN_EMAIL);
-      setPassword(process.env.NEXT_PUBLIC_ADMIN_PASSWORD);
-      setError('');
-    } else {
-      setError('Invalid Security PIN');
-    }
+    setVerifyingPin(true);
+    setError('');
+    // Tiny delay so the loading state is visible even though the check itself is instant
+    setTimeout(() => {
+      if (pin === process.env.NEXT_PUBLIC_ADMIN_PIN) {
+        setPinEntered(true);
+        setEmail(process.env.NEXT_PUBLIC_ADMIN_EMAIL);
+        setPassword(process.env.NEXT_PUBLIC_ADMIN_PASSWORD);
+      } else {
+        setError('Invalid Security PIN');
+      }
+      setVerifyingPin(false);
+    }, 300);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-    const res = await fetch('/api/auth/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password })
-    });
-    if (res.ok) window.location.href = '/admin';
-    else setError('Invalid credentials');
+    setLoggingIn(true);
+    try {
+      const res = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+      if (res.ok) {
+        window.location.href = '/admin';
+        return;
+      }
+      setError('Invalid credentials');
+    } catch {
+      setError('Network error. Please try again.');
+    } finally {
+      setLoggingIn(false);
+    }
   };
 
   return (
@@ -64,19 +81,23 @@ export default function Login() {
                   placeholder="••••••"
                 />
               </div>
-              <button type="submit" className="admin-btn admin-btn-primary admin-btn-block">Verify PIN</button>
+              <button type="submit" disabled={verifyingPin} className="admin-btn admin-btn-primary admin-btn-block">
+                {verifyingPin ? 'Verifying…' : 'Verify PIN'}
+              </button>
             </form>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-5">
               <div>
                 <label className="admin-label">Email</label>
-                <input required type="email" value={email} onChange={e => setEmail(e.target.value)} className="admin-input" />
+                <input required type="email" value={email} onChange={e => setEmail(e.target.value)} className="admin-input" disabled={loggingIn} />
               </div>
               <div>
                 <label className="admin-label">Password</label>
-                <input required type="password" value={password} onChange={e => setPassword(e.target.value)} className="admin-input" />
+                <input required type="password" value={password} onChange={e => setPassword(e.target.value)} className="admin-input" disabled={loggingIn} />
               </div>
-              <button type="submit" className="admin-btn admin-btn-primary admin-btn-block">Login</button>
+              <button type="submit" disabled={loggingIn} className="admin-btn admin-btn-primary admin-btn-block">
+                {loggingIn ? 'Logging in…' : 'Login'}
+              </button>
             </form>
           )}
         </div>

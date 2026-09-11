@@ -1,15 +1,25 @@
 import { motion } from 'framer-motion';
 import { CheckCircle2, Play } from 'lucide-react';
 
-function VideoPreview() {
+function VideoPreview({ mediaUrl, mediaType }) {
+  const src = mediaUrl || '/service-preview.png';
+
+  if (mediaType === 'video' && mediaUrl) {
+    return (
+      <div className="w-full h-full rounded-3xl overflow-hidden relative bg-[#1C1712]">
+        <video src={src} controls className="w-full h-full object-cover" />
+      </div>
+    );
+  }
+
   return (
     <div className="w-full h-full rounded-3xl overflow-hidden relative">
       <img
-        src="/service-preview.png"
+        src={src}
         alt="Website design services preview"
         className="w-full h-full object-cover"
       />
-      <div className="absolute inset-0 flex items-center justify-center">
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
         <span className="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center shadow-xl">
           <Play className="w-6 h-6 text-[#1C1712] ml-1" fill="currentColor" />
         </span>
@@ -33,7 +43,7 @@ export default function ServiceDetailSection({ detail }) {
           transition={{ duration: 0.6 }}
           className="relative w-full aspect-[16/8] rounded-3xl overflow-hidden shadow-[0_20px_50px_-20px_rgba(28,23,18,0.3)] mb-12"
         >
-          <VideoPreview />
+          <VideoPreview mediaUrl={detail.mediaUrl} mediaType={detail.mediaType} />
         </motion.div>
 
         <motion.div
