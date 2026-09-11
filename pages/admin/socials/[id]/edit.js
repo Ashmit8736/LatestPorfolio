@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import AdminLayout from '../../../../components/layout/AdminLayout';
 import Loader3D from '../../../../components/common/Loader3D';
 
-const PLATFORMS = ['GitHub', 'LinkedIn', 'Facebook', 'Twitter', 'Instagram', 'Pinterest', 'YouTube', 'Other'];
+const PLATFORMS = ['GitHub', 'LinkedIn', 'Facebook', 'Twitter', 'Instagram', 'Threads', 'YouTube', 'Other'];
 
 export default function Edit() {
   const router = useRouter();

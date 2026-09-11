@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import AdminLayout from '../../../components/layout/AdminLayout';
 
-const PLATFORMS = ['GitHub', 'LinkedIn', 'Facebook', 'Twitter', 'Instagram', 'Pinterest', 'YouTube', 'Other'];
+const PLATFORMS = ['GitHub', 'LinkedIn', 'Facebook', 'Twitter', 'Instagram', 'Threads', 'YouTube', 'Other'];
 
 export default function New() {
   const [formData, setFormData] = useState({ platform: '', url: '' });

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Mail, Phone, MapPin } from 'lucide-react';
-import { GithubIcon, LinkedinIcon, FacebookIcon, TwitterIcon, PinterestIcon, InstagramIcon, YoutubeIcon, LinkIcon } from '../icons';
+import { GithubIcon, LinkedinIcon, FacebookIcon, TwitterIcon, ThreadsIcon, InstagramIcon, YoutubeIcon, LinkIcon } from '../icons';
 
 function socialIcon(platform) {
   const p = (platform || '').toLowerCase();
@@ -8,7 +8,7 @@ function socialIcon(platform) {
   if (p.includes('linkedin')) return LinkedinIcon;
   if (p.includes('facebook')) return FacebookIcon;
   if (p.includes('twitter') || p === 'x') return TwitterIcon;
-  if (p.includes('pinterest')) return PinterestIcon;
+  if (p.includes('threads')) return ThreadsIcon;
   if (p.includes('instagram')) return InstagramIcon;
   if (p.includes('youtube')) return YoutubeIcon;
   return LinkIcon;

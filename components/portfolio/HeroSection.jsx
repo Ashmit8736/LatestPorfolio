@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { Mail } from 'lucide-react';
-import { GithubIcon as Github, LinkedinIcon as Linkedin, FacebookIcon, TwitterIcon, PinterestIcon, InstagramIcon } from '../icons';
+import { GithubIcon as Github, LinkedinIcon as Linkedin, FacebookIcon, TwitterIcon, ThreadsIcon, InstagramIcon } from '../icons';
 
 const STICKERS = [
   { label: 'React.js', className: 'top-6 -left-4 sm:-left-10 bg-[#1C1712] text-white -rotate-6' },
@@ -12,7 +12,7 @@ const STICKERS = [
 const FOLLOW_PLATFORMS = [
   { key: 'facebook', match: 'facebook', Icon: FacebookIcon },
   { key: 'twitter', match: 'twitter', Icon: TwitterIcon },
-  { key: 'pinterest', match: 'pinterest', Icon: PinterestIcon },
+  { key: 'threads', match: 'threads', Icon: ThreadsIcon },
   { key: 'instagram', match: 'instagram', Icon: InstagramIcon },
 ];
 
