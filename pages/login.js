@@ -32,47 +32,54 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-cyan-300 via-blue-200 to-purple-300 text-white relative overflow-hidden">
-      {/* Floating Orbs Background */}
-      <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none">
-        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-cyan-400/40 blur-3xl animate-float1"></div>
-        <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-purple-400/40 blur-3xl animate-float2"></div>
-        <div className="absolute top-[40%] left-[60%] w-[30%] h-[30%] rounded-full bg-pink-400/30 blur-3xl animate-float3"></div>
-      </div>
+    <div className="min-h-screen flex items-center justify-center bg-cream text-ink font-sans relative overflow-hidden px-4 selection:bg-accent/40">
+      {/* Hero section jaise amber glow */}
+      <div aria-hidden="true" className="pointer-events-none absolute top-0 -left-4 w-96 h-96 bg-accent rounded-full mix-blend-multiply blur-[150px] opacity-25" />
+      <div aria-hidden="true" className="pointer-events-none absolute -bottom-8 right-10 w-96 h-96 bg-accent rounded-full mix-blend-multiply blur-[150px] opacity-25" />
 
-      <div className="max-w-md w-full p-8 rounded-2xl bg-[#111111]  border border-[#333] shadow-2xl relative z-10">
-        <h2 className="text-3xl font-heading font-normal tracking-wider text-center mb-8">{!pinEntered ? 'Security Check' : 'Admin Login'}</h2>
-        {error && <p className="text-red-600 mb-4 text-center">{error}</p>}
-        
-        {!pinEntered ? (
-          <form onSubmit={handlePinSubmit} className="space-y-6">
-            <div>
-              <label className="block text-sm font-medium text-gray-900 font-semibold mb-1">Enter 6-digit Security PIN</label>
-              <input 
-                required 
-                type="password" 
-                maxLength="6"
-                value={pin} 
-                onChange={e => setPin(e.target.value)} 
-                className="w-full px-4 py-3 text-center tracking-[0.5em] text-xl font-heading font-normal tracking-wider border rounded-lg focus:ring-blue-500 focus:border-blue-500" 
-                placeholder="••••••" 
-              />
-            </div>
-            <button type="submit" className="w-full font-medium py-3 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-500 text-white shadow-lg hover:from-blue-700 hover:to-cyan-600 transition-all">Verify PIN</button>
-          </form>
-        ) : (
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div>
-              <label className="block text-sm font-semibold text-gray-900 mb-1">Email</label>
-              <input required type="email" value={email} onChange={e => setEmail(e.target.value)} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-[#111111] text-black font-medium" />
-            </div>
-            <div>
-              <label className="block text-sm font-semibold text-gray-900 mb-1">Password</label>
-              <input required type="password" value={password} onChange={e => setPassword(e.target.value)} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-[#111111] text-black font-medium" />
-            </div>
-            <button type="submit" className="w-full font-medium py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-500 text-white shadow-lg hover:from-blue-700 hover:to-cyan-600 transition-all">Login</button>
-          </form>
-        )}
+      <div className="relative z-10 w-full max-w-md">
+        <div className="flex items-center justify-center gap-2 mb-6 font-heading font-extrabold text-xl tracking-wide text-ink">
+          <span className="w-9 h-9 rounded-full bg-accent flex items-center justify-center text-ink text-sm">A</span>
+          Ashmit.
+        </div>
+
+        <div className="admin-card p-8 sm:p-10">
+          <p className="admin-eyebrow justify-center">{!pinEntered ? 'Step 1 of 2' : 'Step 2 of 2'}</p>
+          <h2 className="admin-title text-center mb-8">{!pinEntered ? 'Security Check' : 'Admin Login'}</h2>
+          {error && (
+            <p className="mb-6 rounded-xl border border-danger/30 bg-danger/10 px-4 py-3 text-center text-sm font-semibold text-danger">{error}</p>
+          )}
+
+          {!pinEntered ? (
+            <form onSubmit={handlePinSubmit} className="space-y-6">
+              <div>
+                <label className="admin-label text-center">Enter 6-digit Security PIN</label>
+                <input
+                  required
+                  type="password"
+                  maxLength="6"
+                  value={pin}
+                  onChange={e => setPin(e.target.value)}
+                  className="admin-input text-center text-2xl tracking-[0.5em] font-heading"
+                  placeholder="••••••"
+                />
+              </div>
+              <button type="submit" className="admin-btn admin-btn-primary admin-btn-block">Verify PIN</button>
+            </form>
+          ) : (
+            <form onSubmit={handleSubmit} className="space-y-5">
+              <div>
+                <label className="admin-label">Email</label>
+                <input required type="email" value={email} onChange={e => setEmail(e.target.value)} className="admin-input" />
+              </div>
+              <div>
+                <label className="admin-label">Password</label>
+                <input required type="password" value={password} onChange={e => setPassword(e.target.value)} className="admin-input" />
+              </div>
+              <button type="submit" className="admin-btn admin-btn-primary admin-btn-block">Login</button>
+            </form>
+          )}
+        </div>
       </div>
     </div>
   );

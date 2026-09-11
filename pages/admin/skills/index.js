@@ -1,12 +1,17 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import AdminLayout from '../../../components/layout/AdminLayout';
+import Loader3D from '../../../components/common/Loader3D';
 
 export default function List() {
   const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('/api/portfolio/skills').then(res => res.json()).then(data => setItems(data.data || []));
+    fetch('/api/portfolio/skills')
+      .then(res => res.json())
+      .then(data => setItems(data.data || []))
+      .finally(() => setLoading(false));
   }, []);
 
   const handleDelete = async (id) => {
@@ -26,39 +31,46 @@ export default function List() {
 
   return (
     <AdminLayout>
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-heading font-normal tracking-wider">Skills</h1>
-        <Link href="/admin/skills/new" className="px-4 py-2 rounded bg-[#ff5a1f] text-white shadow-lg hover:bg-[#e04d19] text-white hover:opacity-90 transition-opacity border-0">Add New</Link>
+      <div className="admin-header">
+        <div>
+          <p className="admin-eyebrow">Manage</p>
+          <h1 className="admin-title">Skills</h1>
+        </div>
+        <Link href="/admin/skills/new" className="admin-btn admin-btn-primary">+ Add New</Link>
       </div>
-      <div className="overflow-x-auto rounded-lg bg-[#111111]  border border-[#333] shadow-2xl text-white">
-        <table className="w-full text-left border-collapse">
-          <thead>
-            <tr className="bg-gray-100/80 border-b border-gray-300 text-black">
-              <th className="p-4 font-semibold text-white font-semibold">Skill Name</th>
-              <th className="p-4 font-semibold text-white font-semibold">Category</th>
-              <th className="p-4 font-semibold text-white font-semibold text-right">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {items.map(item => (
-              <tr key={item.id} className="border-b border-gray-200 hover:bg-[#111111]">
-                <td className="p-4 font-medium">{item.name}</td>
-                <td className="p-4 text-sm text-gray-400">
-                  <span className="bg-blue-50 text-blue-700 px-2.5 py-1 rounded-md text-xs font-semibold">{item.category}</span>
-                </td>
-                <td className="p-4 space-x-3 text-right">
-                  <Link href={`/admin/skills/${item.id}/edit`} className="text-blue-600 hover:underline font-medium">Edit</Link>
-                  <button onClick={() => handleDelete(item.id)} className="text-red-600 hover:underline font-medium">Delete</button>
-                </td>
-              </tr>
-            ))}
-            {items.length === 0 && (
+      <div className="admin-card overflow-x-auto">
+        {loading ? <Loader3D /> : (
+          <table className="admin-table">
+            <thead>
               <tr>
-                <td colSpan="3" className="p-8 text-center text-[#ff5a1f]/70">No items found.</td>
+                <th>Skill Name</th>
+                <th>Category</th>
+                <th className="text-right">Actions</th>
               </tr>
-            )}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {items.map(item => (
+                <tr key={item.id}>
+                  <td className="font-semibold">{item.name}</td>
+                  <td>
+                    {item.category ? <span className="admin-chip">{item.category}</span> : <span className="text-muted">-</span>}
+                  </td>
+                  <td>
+                    <div className="admin-actions">
+                      <Link href={`/admin/skills/${item.id}/edit`} className="admin-action">Edit</Link>
+                      <button onClick={() => handleDelete(item.id)} className="admin-action admin-action-danger">Delete</button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+              {items.length === 0 && (
+                <tr>
+                  <td colSpan="3" className="admin-empty">No items found.</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        )}
       </div>
     </AdminLayout>
   );

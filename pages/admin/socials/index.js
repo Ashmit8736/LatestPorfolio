@@ -1,12 +1,17 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import AdminLayout from '../../../components/layout/AdminLayout';
+import Loader3D from '../../../components/common/Loader3D';
 
 export default function List() {
   const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('/api/portfolio/socials').then(res => res.json()).then(data => setItems(data.data || []));
+    fetch('/api/portfolio/socials')
+      .then(res => res.json())
+      .then(data => setItems(data.data || []))
+      .finally(() => setLoading(false));
   }, []);
 
   const handleDelete = async (id) => {
@@ -26,25 +31,34 @@ export default function List() {
 
   return (
     <AdminLayout>
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-heading font-normal tracking-wider">Social Links</h1>
-        <Link href="/admin/socials/new" className="px-4 py-2 rounded bg-[#ff5a1f] text-white shadow-lg hover:bg-[#e04d19] text-white hover:opacity-90 transition-opacity border-0">Add New</Link>
+      <div className="admin-header">
+        <div>
+          <p className="admin-eyebrow">Manage</p>
+          <h1 className="admin-title">Social Links</h1>
+        </div>
+        <Link href="/admin/socials/new" className="admin-btn admin-btn-primary">+ Add New</Link>
       </div>
-      <div className="space-y-4">
-        {items.map(item => (
-          <div key={item.id} className="flex justify-between items-center border p-4 rounded-lg bg-gray-50">
-            <div>
-              <p className="font-heading font-normal tracking-wider text-lg">{item.platform}</p>
-              <p className="text-gray-400">{item.url}</p>
+      {loading ? (
+        <div className="admin-card">
+          <Loader3D />
+        </div>
+      ) : (
+        <div className="space-y-3">
+          {items.map(item => (
+            <div key={item.id} className="admin-card p-5 flex flex-wrap justify-between items-center gap-4">
+              <div className="min-w-0">
+                <p className="font-heading font-bold text-lg text-ink">{item.platform}</p>
+                <p className="text-sm text-ink-soft break-all">{item.url}</p>
+              </div>
+              <div className="admin-actions">
+                <Link href={`/admin/socials/${item.id}/edit`} className="admin-action">Edit</Link>
+                <button onClick={() => handleDelete(item.id)} className="admin-action admin-action-danger">Delete</button>
+              </div>
             </div>
-            <div className="space-x-4">
-              <Link href={`/admin/socials/${item.id}/edit`} className="text-blue-600 hover:underline">Edit</Link>
-              <button onClick={() => handleDelete(item.id)} className="text-red-600 hover:underline">Delete</button>
-            </div>
-          </div>
-        ))}
-        {items.length === 0 && <p>No items found.</p>}
-      </div>
+          ))}
+          {items.length === 0 && <div className="admin-card admin-empty">No items found.</div>}
+        </div>
+      )}
     </AdminLayout>
   );
 }

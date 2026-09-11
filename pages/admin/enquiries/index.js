@@ -1,11 +1,16 @@
 import { useState, useEffect } from 'react';
 import AdminLayout from '../../../components/layout/AdminLayout';
+import Loader3D from '../../../components/common/Loader3D';
 
 export default function Enquiries() {
   const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('/api/contact').then(res => res.json()).then(data => setItems(data.data || []));
+    fetch('/api/contact')
+      .then(res => res.json())
+      .then(data => setItems(data.data || []))
+      .finally(() => setLoading(false));
   }, []);
 
   const handleDelete = async (id) => {
@@ -16,20 +21,36 @@ export default function Enquiries() {
 
   return (
     <AdminLayout>
-      <h1 className="text-3xl font-heading font-normal tracking-wider mb-6">Recruiter Enquiries</h1>
-      <div className="space-y-4">
-        {items.map(item => (
-          <div key={item.id} className="border p-4 rounded-lg bg-gray-50">
-            <div className="flex justify-between">
-              <h3 className="font-heading font-normal tracking-wider text-lg">{item.name} ({item.email})</h3>
-              <button onClick={() => handleDelete(item.id)} className="text-red-600 hover:underline">Delete</button>
-            </div>
-            <p className="text-sm text-[#ff5a1f]/70 mb-2">{item.company || 'No company'}</p>
-            <p className="text-gray-800">{item.message}</p>
-          </div>
-        ))}
-        {items.length === 0 && <p>No enquiries yet.</p>}
+      <div className="admin-header">
+        <div>
+          <p className="admin-eyebrow">Inbox</p>
+          <h1 className="admin-title">Recruiter Enquiries</h1>
+        </div>
       </div>
+      {loading ? (
+        <div className="admin-card">
+          <Loader3D />
+        </div>
+      ) : (
+        <div className="space-y-4">
+          {items.map(item => (
+            <div key={item.id} className="admin-card p-5 sm:p-6">
+              <div className="flex flex-wrap justify-between items-start gap-3">
+                <div className="min-w-0">
+                  <h3 className="font-heading font-bold text-lg text-ink">{item.name}</h3>
+                  <p className="text-sm text-ink-soft break-all">{item.email}</p>
+                </div>
+                <button onClick={() => handleDelete(item.id)} className="admin-action admin-action-danger">Delete</button>
+              </div>
+              <div className="mt-3">
+                <span className="admin-chip">{item.company || 'No company'}</span>
+              </div>
+              <p className="mt-3 text-ink leading-relaxed whitespace-pre-line">{item.message}</p>
+            </div>
+          ))}
+          {items.length === 0 && <div className="admin-card admin-empty">No enquiries yet.</div>}
+        </div>
+      )}
     </AdminLayout>
   );
 }

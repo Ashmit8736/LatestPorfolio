@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import AdminLayout from '../../../../components/layout/AdminLayout';
+import Loader3D from '../../../../components/common/Loader3D';
 
 export default function Edit() {
   const router = useRouter();
@@ -31,18 +32,23 @@ export default function Edit() {
     }
   };
 
-  if (!formData) return <AdminLayout>Loading...</AdminLayout>;
+  if (!formData) return <AdminLayout><div className="admin-card"><Loader3D /></div></AdminLayout>;
 
   return (
     <AdminLayout>
-      <h1 className="text-3xl font-heading font-normal tracking-wider mb-6">Edit Skill</h1>
-      <form onSubmit={handleSubmit} className="space-y-4 max-w-xl p-6 rounded-lg bg-[#111111]  border border-[#333] shadow-2xl text-white">
-        <div><label className="block mb-1 font-medium">Skill Name</label><input required className="w-full border p-2 rounded" placeholder="e.g. React.js" value={formData.name || ''} onChange={e => setFormData({...formData, name: e.target.value})} /></div>
+      <div className="admin-header">
         <div>
-          <label className="block mb-1 font-medium">Category (Optional)</label>
-          <input className="w-full border p-2 rounded" placeholder="e.g. Frontend, Backend, Database" value={formData.category || ''} onChange={e => setFormData({...formData, category: e.target.value})} />
+          <p className="admin-eyebrow">Skills</p>
+          <h1 className="admin-title">Edit Skill</h1>
         </div>
-        <button type="submit" className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 w-full">Update</button>
+      </div>
+      <form onSubmit={handleSubmit} className="admin-card admin-form max-w-2xl">
+        <div><label className="admin-label">Skill Name</label><input required className="admin-input" placeholder="e.g. React.js" value={formData.name || ''} onChange={e => setFormData({...formData, name: e.target.value})} /></div>
+        <div>
+          <label className="admin-label">Category (Optional)</label>
+          <input className="admin-input" placeholder="e.g. Frontend, Backend, Database" value={formData.category || ''} onChange={e => setFormData({...formData, category: e.target.value})} />
+        </div>
+        <button type="submit" className="admin-btn admin-btn-primary admin-btn-block">Update</button>
       </form>
     </AdminLayout>
   );
