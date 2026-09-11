@@ -1,17 +1,6 @@
 import { motion } from 'framer-motion';
 import { CheckCircle2, Play } from 'lucide-react';
 
-const INCLUDES = [
-  'Website UI/UX Design',
-  'User Research & Strategy',
-  'Responsive Web Development',
-  'Interaction & Animation',
-  'Wireframing & Prototyping',
-  'API Integration',
-  'Branding Consistency',
-  'Design System Creation',
-];
-
 function VideoPreview() {
   return (
     <div className="w-full h-full rounded-3xl overflow-hidden relative">
@@ -29,7 +18,11 @@ function VideoPreview() {
   );
 }
 
-export default function ServiceDetailSection() {
+export default function ServiceDetailSection({ detail }) {
+  if (!detail || !detail.heading) return null;
+
+  const checklist = (detail.checklist || '').split(',').map(t => t.trim()).filter(Boolean);
+
   return (
     <section className="scroll-mt-24 py-16 md:py-24 bg-[#F7F1E6] relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -51,23 +44,23 @@ export default function ServiceDetailSection() {
           className="mb-10"
         >
           <h2 className="text-3xl sm:text-4xl font-heading font-extrabold text-[#1C1712] mb-6">
-            About <span className="text-[#F5A623]">Website & App</span> Development Services
+            {detail.heading}
           </h2>
 
           <div className="flex items-start gap-4 mb-6">
             <span className="w-9 h-9 rounded-full bg-[#F5A623] text-[#1C1712] font-heading font-bold flex items-center justify-center flex-shrink-0">L</span>
             <p className="text-[#5C5346] leading-relaxed">
-              Website &amp; app development services create modern, user-friendly, and reliable digital products. Every project is built for smooth navigation, responsive layouts, and seamless usability across all devices.
+              {detail.paragraph1}
             </p>
           </div>
 
           <p className="text-[#5C5346] leading-relaxed mb-8">
-            The process includes requirement gathering, wireframing, UI implementation, API development, and performance optimization to build products that are both functional and visually appealing. Attention is given to security, accessibility, code structure, and user behavior to ensure the final build supports engagement, improves overall user experience, and helps businesses grow online.
+            {detail.paragraph2}
           </p>
 
           <h3 className="text-xl font-heading font-bold text-[#1C1712] mb-5">Services Include:</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3">
-            {INCLUDES.map(item => (
+            {checklist.map(item => (
               <div key={item} className="flex items-center gap-3">
                 <CheckCircle2 className="w-5 h-5 text-[#F5A623] flex-shrink-0" />
                 <span className="text-[#1C1712] font-medium text-sm sm:text-base">{item}</span>

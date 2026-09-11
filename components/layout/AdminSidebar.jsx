@@ -11,13 +11,17 @@ export default function AdminSidebar({ onNavigate }) {
     { name: 'Education', path: '/admin/education' },
     { name: 'Projects', path: '/admin/projects' },
     { name: 'Skills', path: '/admin/skills' },
+    { name: 'Services', path: '/admin/services' },
+    { name: 'Industries', path: '/admin/industries' },
+    { name: 'Service Detail', path: '/admin/service-detail' },
     { name: 'Social Links', path: '/admin/socials' },
     { name: 'Enquiries', path: '/admin/enquiries' },
   ];
 
   // Dashboard sirf exact /admin pe active; baaki apne new/edit pages pe bhi
+  const currentPath = router.pathname || '';
   const isActive = (path) =>
-    path === '/admin' ? router.pathname === '/admin' : router.pathname.startsWith(path);
+    path === '/admin' ? currentPath === '/admin' : currentPath.startsWith(path);
 
   return (
     <aside className="w-full h-full bg-ink text-on-dark flex flex-col pt-20 md:pt-0 overflow-y-auto">

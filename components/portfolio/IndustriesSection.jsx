@@ -1,16 +1,6 @@
 import { motion } from 'framer-motion';
-import { ShoppingCart, HeartPulse, Building2, GraduationCap, Landmark, Hotel, Dumbbell, Trophy, CheckCircle2 } from 'lucide-react';
-
-const INDUSTRIES = [
-  { title: 'E-Commerce', desc: 'Seamless online shopping with smooth user experience', icon: ShoppingCart },
-  { title: 'Healthcare', desc: 'Easy healthcare portals with user-friendly experiences', icon: HeartPulse },
-  { title: 'Real Estate', desc: 'Modern property search with smooth browsing experience', icon: Building2 },
-  { title: 'Education', desc: 'Interactive learning platforms for better engagement', icon: GraduationCap },
-  { title: 'Finance', desc: 'Secure finance solutions with easy management', icon: Landmark },
-  { title: 'Hospitality', desc: 'Smooth booking experiences for hotels and travel', icon: Hotel },
-  { title: 'Fitness', desc: 'Smart fitness tracking for healthier routines', icon: Dumbbell },
-  { title: 'Sports', desc: 'Live sports updates with engaging experiences', icon: Trophy },
-];
+import { CheckCircle2 } from 'lucide-react';
+import { getIndustryIcon } from '../../lib/iconRegistry';
 
 const BENEFITS = [
   'Improved user experience with intuitive navigation and responsive layouts for seamless browsing across all devices.',
@@ -18,7 +8,9 @@ const BENEFITS = [
   'Better user engagement with well-structured APIs and smooth data flow that support conversions and business growth.',
 ];
 
-export default function IndustriesSection() {
+export default function IndustriesSection({ industries }) {
+  if (!industries || industries.length === 0) return null;
+
   return (
     <section className="scroll-mt-24 py-16 md:py-24 bg-[#F7F1E6] relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -38,11 +30,11 @@ export default function IndustriesSection() {
         </motion.div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5 mb-14">
-          {INDUSTRIES.map((ind, idx) => {
-            const Icon = ind.icon;
+          {industries.map((ind, idx) => {
+            const Icon = getIndustryIcon(ind.icon);
             return (
               <motion.div
-                key={ind.title}
+                key={ind.id}
                 initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -53,7 +45,7 @@ export default function IndustriesSection() {
                   <Icon className="w-5 h-5 text-[#1C1712]" />
                 </div>
                 <h3 className="font-heading font-bold text-[#1C1712] mb-1">{ind.title}</h3>
-                <p className="text-sm text-[#5C5346] leading-snug">{ind.desc}</p>
+                <p className="text-sm text-[#5C5346] leading-snug">{ind.description}</p>
               </motion.div>
             );
           })}

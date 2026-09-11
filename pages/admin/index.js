@@ -7,6 +7,9 @@ const SECTIONS = [
   { name: 'Education', path: '/admin/education', desc: 'Degrees, institutions and scores' },
   { name: 'Projects', path: '/admin/projects', desc: 'Portfolio projects with links and images' },
   { name: 'Skills', path: '/admin/skills', desc: 'Tech stack grouped by category' },
+  { name: 'Services', path: '/admin/services', desc: 'The "How I Bring Ideas to Life" list' },
+  { name: 'Industries', path: '/admin/industries', desc: 'The "Top 8 Industries" cards' },
+  { name: 'Service Detail', path: '/admin/service-detail', desc: 'About Website & App Development Services text' },
   { name: 'Social Links', path: '/admin/socials', desc: 'GitHub, LinkedIn and other profiles' },
   { name: 'Enquiries', path: '/admin/enquiries', desc: 'Messages from the contact form' },
 ];

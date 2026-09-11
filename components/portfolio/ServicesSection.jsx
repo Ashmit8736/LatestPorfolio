@@ -1,42 +1,12 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowUpRight, Globe, Smartphone, TestTube2, Database, PenTool } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
+import { getServiceIcon } from '../../lib/iconRegistry';
 
-const SERVICES = [
-  {
-    title: 'Website Design',
-    icon: Globe,
-    tags: ['Responsive Design', 'Landing Pages', 'Next.js', 'Tailwind CSS'],
-    description: 'Designing and building fast, responsive websites focused on clean UI, smooth navigation, and seamless usability across all devices.',
-  },
-  {
-    title: 'App Development',
-    icon: Smartphone,
-    tags: ['MERN Stack', 'REST APIs', 'Node.js', 'Express.js'],
-    description: 'Building full-stack web applications end-to-end — from RESTful APIs and authentication to responsive React front-ends.',
-  },
-  {
-    title: 'Testing',
-    icon: TestTube2,
-    tags: ['Manual Testing', 'API Testing (Postman)', 'Debugging'],
-    description: 'Performing manual and API testing to catch bugs early, verify functionality, and ensure application reliability before release.',
-  },
-  {
-    title: 'Database Management',
-    icon: Database,
-    tags: ['MongoDB', 'MySQL', 'Stored Procedures', 'PostgreSQL'],
-    description: 'Designing and optimizing database schemas, queries, and stored procedures for performance, consistency, and scale.',
-  },
-  {
-    title: 'UI & UX',
-    icon: PenTool,
-    tags: ['Responsive UI', 'Tailwind CSS', 'Design to Code'],
-    description: 'Translating designs into pixel-accurate, accessible interfaces with attention to spacing, hierarchy, and interaction detail.',
-  },
-];
-
-export default function ServicesSection() {
+export default function ServicesSection({ services }) {
   const [openIndex, setOpenIndex] = useState(1);
+
+  if (!services || services.length === 0) return null;
 
   return (
     <section id="services" className="scroll-mt-24 py-16 md:py-24 bg-[#F7F1E6] relative">
@@ -63,12 +33,13 @@ export default function ServicesSection() {
         </motion.h2>
 
         <div className="flex flex-col gap-3">
-          {SERVICES.map((service, index) => {
+          {services.map((service, index) => {
             const isOpen = openIndex === index;
-            const Icon = service.icon;
+            const Icon = getServiceIcon(service.icon);
+            const tags = (service.tags || '').split(',').map(t => t.trim()).filter(Boolean);
             return (
               <motion.div
-                key={service.title}
+                key={service.id}
                 initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -101,7 +72,7 @@ export default function ServicesSection() {
                     className="pl-9 sm:pl-16 pt-4 pr-4"
                   >
                     <div className="flex flex-wrap gap-2 mb-4">
-                      {service.tags.map(tag => (
+                      {tags.map(tag => (
                         <span key={tag} className="text-xs font-semibold text-[#EFE7D6] bg-white/10 border border-white/10 px-3 py-1.5 rounded-full">
                           {tag}
                         </span>

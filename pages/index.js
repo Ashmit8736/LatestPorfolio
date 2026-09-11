@@ -13,7 +13,7 @@ import FaqSection from '../components/portfolio/FaqSection';
 import ContactSection from '../components/portfolio/ContactSection';
 import { prisma } from '../lib/prisma';
 
-export default function Home({ profile, experiences, education, projects, skills, socials }) {
+export default function Home({ profile, experiences, education, projects, skills, socials, services, industries, serviceDetail }) {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       window.history.scrollRestoration = 'manual';
@@ -32,9 +32,9 @@ export default function Home({ profile, experiences, education, projects, skills
       </Head>
       <HeroSection profile={profile} />
       <AboutSection profile={profile} experiences={experiences} projects={projects} skills={skills} />
-      <ServicesSection />
-      <ServiceDetailSection />
-      <IndustriesSection />
+      <ServicesSection services={services} />
+      <ServiceDetailSection detail={serviceDetail} />
+      <IndustriesSection industries={industries} />
       <JourneySection experiences={experiences} education={education} />
       <ProjectsSection projects={projects} />
       <SkillsSection skills={skills} />
@@ -51,6 +51,9 @@ export async function getServerSideProps() {
   const projects = await prisma.project.findMany({ orderBy: { createdAt: 'desc' } });
   const skills = await prisma.skill.findMany();
   const socials = await prisma.socialLink.findMany();
+  const services = await prisma.service.findMany({ orderBy: { order: 'asc' } });
+  const industries = await prisma.industry.findMany({ orderBy: { order: 'asc' } });
+  const serviceDetail = await prisma.serviceDetail.findFirst();
 
   return {
     props: {
@@ -60,6 +63,9 @@ export async function getServerSideProps() {
       projects: JSON.parse(JSON.stringify(projects)),
       skills: JSON.parse(JSON.stringify(skills)),
       socials: JSON.parse(JSON.stringify(socials)),
+      services: JSON.parse(JSON.stringify(services)),
+      industries: JSON.parse(JSON.stringify(industries)),
+      serviceDetail: JSON.parse(JSON.stringify(serviceDetail)),
     }
   };
 }

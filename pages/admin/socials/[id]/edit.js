@@ -3,6 +3,8 @@ import { useRouter } from 'next/router';
 import AdminLayout from '../../../../components/layout/AdminLayout';
 import Loader3D from '../../../../components/common/Loader3D';
 
+const PLATFORMS = ['GitHub', 'LinkedIn', 'Facebook', 'Twitter', 'Instagram', 'Pinterest', 'YouTube', 'Other'];
+
 export default function Edit() {
   const router = useRouter();
   const { id } = router.query;
@@ -44,10 +46,15 @@ export default function Edit() {
       </div>
       <form onSubmit={handleSubmit} className="admin-card admin-form max-w-2xl">
         <div>
-          <label className="admin-label">JSON Data</label>
-          <textarea required rows="10" className="admin-input admin-code" defaultValue={JSON.stringify(formData, null, 2)} onChange={e => {
-            try { setFormData(JSON.parse(e.target.value)) } catch {}
-          }}></textarea>
+          <label className="admin-label">Platform</label>
+          <select required className="admin-input" value={formData.platform || ''} onChange={e => setFormData({ ...formData, platform: e.target.value })}>
+            <option value="" disabled>Select a platform</option>
+            {PLATFORMS.map(p => <option key={p} value={p}>{p}</option>)}
+          </select>
+        </div>
+        <div>
+          <label className="admin-label">Profile URL</label>
+          <input required type="url" className="admin-input" value={formData.url || ''} onChange={e => setFormData({ ...formData, url: e.target.value })} />
         </div>
         <button type="submit" className="admin-btn admin-btn-primary self-start">Update</button>
       </form>

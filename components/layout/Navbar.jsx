@@ -50,7 +50,7 @@ export default function Navbar() {
       animate={{ y: hidden ? -140 : 0 }}
       transition={{ duration: 0.3, ease: 'easeInOut' }}
       className="fixed top-4 left-0 right-0 z-50 px-4 transform-gpu will-change-transform">
-      <div className="max-w-6xl mx-auto bg-[#1C1712] rounded-full shadow-[0_10px_40px_-10px_rgba(28,23,18,0.5)] px-3 sm:px-4">
+      <div className={`max-w-6xl mx-auto bg-[#1C1712] shadow-[0_10px_40px_-10px_rgba(28,23,18,0.5)] px-3 sm:px-4 transition-[border-radius] duration-200 ${isMenuOpen ? 'rounded-3xl' : 'rounded-full'}`}>
         <div className="flex justify-between items-center h-16">
           <Link href="/" className="flex items-center gap-2 pl-2 text-lg font-heading font-extrabold tracking-wide text-[#F7F1E6]">
             <span className="w-8 h-8 rounded-full bg-[#F5A623] flex items-center justify-center text-[#1C1712] text-sm">A</span>

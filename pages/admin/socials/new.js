@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import AdminLayout from '../../../components/layout/AdminLayout';
 
+const PLATFORMS = ['GitHub', 'LinkedIn', 'Facebook', 'Twitter', 'Instagram', 'Pinterest', 'YouTube', 'Other'];
+
 export default function New() {
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState({ platform: '', url: '' });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,11 +35,15 @@ export default function New() {
       </div>
       <form onSubmit={handleSubmit} className="admin-card admin-form max-w-2xl">
         <div>
-          <label className="admin-label">JSON Data</label>
-          <textarea required rows="10" className="admin-input admin-code" placeholder="{}" onChange={e => {
-            try { setFormData(JSON.parse(e.target.value)) } catch {}
-          }}></textarea>
-          <p className="text-xs text-muted mt-2">Please enter raw JSON corresponding to the Prisma model fields for simplicity in this generated view.</p>
+          <label className="admin-label">Platform</label>
+          <select required className="admin-input" value={formData.platform} onChange={e => setFormData({ ...formData, platform: e.target.value })}>
+            <option value="" disabled>Select a platform</option>
+            {PLATFORMS.map(p => <option key={p} value={p}>{p}</option>)}
+          </select>
+        </div>
+        <div>
+          <label className="admin-label">Profile URL</label>
+          <input required type="url" className="admin-input" placeholder="https://github.com/yourusername" value={formData.url} onChange={e => setFormData({ ...formData, url: e.target.value })} />
         </div>
         <button type="submit" className="admin-btn admin-btn-primary self-start">Save</button>
       </form>

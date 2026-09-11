@@ -1,12 +1,17 @@
 import { useState } from 'react';
 import { Mail, Phone, MapPin } from 'lucide-react';
-import { GithubIcon as Github, LinkedinIcon as Linkedin } from '../icons';
+import { GithubIcon, LinkedinIcon, FacebookIcon, TwitterIcon, PinterestIcon, InstagramIcon, YoutubeIcon, LinkIcon } from '../icons';
 
 function socialIcon(platform) {
   const p = (platform || '').toLowerCase();
-  if (p.includes('github')) return Github;
-  if (p.includes('linkedin')) return Linkedin;
-  return null;
+  if (p.includes('github')) return GithubIcon;
+  if (p.includes('linkedin')) return LinkedinIcon;
+  if (p.includes('facebook')) return FacebookIcon;
+  if (p.includes('twitter') || p === 'x') return TwitterIcon;
+  if (p.includes('pinterest')) return PinterestIcon;
+  if (p.includes('instagram')) return InstagramIcon;
+  if (p.includes('youtube')) return YoutubeIcon;
+  return LinkIcon;
 }
 
 export default function ContactSection({ profile, socials = [] }) {
