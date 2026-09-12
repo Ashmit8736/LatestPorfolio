@@ -3,6 +3,14 @@ import { getUserFromRequest } from '../../../lib/auth';
 import { successResponse, errorResponse } from '../../../lib/apiResponse';
 import { validateProfile } from '../../../lib/validations';
 
+// Profile photos are stored inline as base64 data URIs (see lib/clientImage.js),
+// so the default 1mb body limit isn't enough.
+export const config = {
+  api: {
+    bodyParser: { sizeLimit: '4mb' },
+  },
+};
+
 export default async function handler(req, res) {
   if (req.method === 'GET') {
     try {

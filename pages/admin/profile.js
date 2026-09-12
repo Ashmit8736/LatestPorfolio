@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import AdminLayout from '../../components/layout/AdminLayout';
 import Loader3D from '../../components/common/Loader3D';
+import { compressImage } from '../../lib/clientImage';
 
 export default function Profile() {
   const [formData, setFormData] = useState({ fullName: '', headline: '', shortBio: '', about: '' });
@@ -20,14 +21,10 @@ export default function Profile() {
     if (!file) return;
     setUploadingPhoto(true);
     try {
-      const body = new FormData();
-      body.append('image', file);
-      const res = await fetch('/api/upload', { method: 'POST', body });
-      const data = await res.json();
-      if (res.ok) setFormData(f => ({ ...f, profileImage: data.url }));
-      else alert('Photo upload failed: ' + (data.error || 'Unknown error'));
-    } catch {
-      alert('Photo upload failed. Please try again.');
+      const dataUrl = await compressImage(file);
+      setFormData(f => ({ ...f, profileImage: dataUrl }));
+    } catch (err) {
+      alert(err.message || 'Photo processing failed. Please try again.');
     } finally {
       setUploadingPhoto(false);
     }
@@ -77,7 +74,7 @@ export default function Profile() {
             <div className="flex-1">
               <input type="file" accept="image/*" onChange={handlePhotoChange} disabled={uploadingPhoto} className="admin-input" />
               <p className="text-xs text-muted mt-1.5">Accepted formats: JPG, PNG, or WEBP. Square photos work best (recommended 800×800px, under 5MB).</p>
-              {uploadingPhoto && <p className="text-xs text-accent mt-1 font-semibold">Uploading…</p>}
+              {uploadingPhoto && <p className="text-xs text-accent mt-1 font-semibold">Processing…</p>}
             </div>
           </div>
         </div>

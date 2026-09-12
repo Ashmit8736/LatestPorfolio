@@ -3,6 +3,16 @@ import { getUserFromRequest } from '../../../lib/auth';
 import { successResponse, errorResponse } from '../../../lib/apiResponse';
 import { validateServiceDetail } from '../../../lib/validations';
 
+// This record can carry a main photo/video plus two card images, all stored
+// inline as base64 data URIs (see lib/clientImage.js) — well past the default
+// 1mb body limit, so we raise it as close to Vercel's own ~4.5mb request cap
+// as Next's config allows.
+export const config = {
+  api: {
+    bodyParser: { sizeLimit: '4.5mb' },
+  },
+};
+
 export default async function handler(req, res) {
   if (req.method === 'GET') {
     try {

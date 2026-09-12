@@ -1,8 +1,14 @@
 import { useState, useEffect } from 'react';
 import AdminLayout from '../../components/layout/AdminLayout';
 import Loader3D from '../../components/common/Loader3D';
+import { compressImage, fileToBase64 } from '../../lib/clientImage';
 
 const EMPTY = { heading: '', paragraph1: '', paragraph2: '', checklist: '', mediaUrl: '', mediaType: 'image', cardImage1: '', cardImage2: '' };
+
+// Media is stored inline as a data URI (see lib/clientImage.js), and Vercel's
+// serverless functions cap the request body around 4.5MB — base64 inflates size
+// by ~33%, so we keep raw video files well under that ceiling.
+const MAX_VIDEO_BYTES = 2 * 1024 * 1024;
 
 export default function ServiceDetail() {
   const [formData, setFormData] = useState(EMPTY);
@@ -20,19 +26,20 @@ export default function ServiceDetail() {
   const handleMediaChange = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
+    const isVideo = file.type.startsWith('video/');
+
+    if (isVideo && file.size > MAX_VIDEO_BYTES) {
+      alert(`That video is ${(file.size / (1024 * 1024)).toFixed(1)}MB. Please keep videos under 2MB — larger files will fail to save.`);
+      e.target.value = '';
+      return;
+    }
+
     setUploadingField('media');
     try {
-      const body = new FormData();
-      body.append('image', file);
-      const res = await fetch('/api/upload', { method: 'POST', body });
-      const data = await res.json();
-      if (res.ok) {
-        setFormData(f => ({ ...f, mediaUrl: data.url, mediaType: file.type.startsWith('video/') ? 'video' : 'image' }));
-      } else {
-        alert('Upload failed: ' + (data.error || 'Unknown error'));
-      }
-    } catch {
-      alert('Upload failed. Please try again.');
+      const dataUrl = isVideo ? await fileToBase64(file) : await compressImage(file, 1400);
+      setFormData(f => ({ ...f, mediaUrl: dataUrl, mediaType: isVideo ? 'video' : 'image' }));
+    } catch (err) {
+      alert(err.message || 'Could not process that file. Please try again.');
     } finally {
       setUploadingField(null);
     }
@@ -43,14 +50,10 @@ export default function ServiceDetail() {
     if (!file) return;
     setUploadingField(field);
     try {
-      const body = new FormData();
-      body.append('image', file);
-      const res = await fetch('/api/upload', { method: 'POST', body });
-      const data = await res.json();
-      if (res.ok) setFormData(f => ({ ...f, [field]: data.url }));
-      else alert('Upload failed: ' + (data.error || 'Unknown error'));
-    } catch {
-      alert('Upload failed. Please try again.');
+      const dataUrl = await compressImage(file, 700);
+      setFormData(f => ({ ...f, [field]: dataUrl }));
+    } catch (err) {
+      alert(err.message || 'Could not process that image. Please try again.');
     } finally {
       setUploadingField(null);
     }
@@ -106,8 +109,8 @@ export default function ServiceDetail() {
             )}
             <div className="flex-1 w-full">
               <input type="file" accept="image/*,video/*" onChange={handleMediaChange} disabled={anyUploading} className="admin-input" />
-              <p className="text-xs text-muted mt-1.5">Accepted formats: JPG, PNG, or WEBP for a photo; MP4 or WEBM for a video. Landscape 16:8 works best (under 20MB).</p>
-              {uploadingField === 'media' && <p className="text-xs text-accent mt-1 font-semibold">Uploading…</p>}
+              <p className="text-xs text-muted mt-1.5">Accepted formats: JPG, PNG, or WEBP for a photo (any size, auto-resized); MP4 or WEBM for a video, under 2MB. Landscape 16:8 works best.</p>
+              {uploadingField === 'media' && <p className="text-xs text-accent mt-1 font-semibold">Processing…</p>}
             </div>
           </div>
         </div>
@@ -135,8 +138,8 @@ export default function ServiceDetail() {
               <img src={formData.cardImage1} alt="Our Services preview" className="w-full h-28 object-cover rounded-lg border border-line mb-2" />
             )}
             <input type="file" accept="image/*" onChange={handleCardImageChange('cardImage1')} disabled={anyUploading} className="admin-input" />
-            <p className="text-xs text-muted mt-1.5">JPG, PNG, or WEBP. Square-ish works best (under 5MB).</p>
-            {uploadingField === 'cardImage1' && <p className="text-xs text-accent mt-1 font-semibold">Uploading…</p>}
+            <p className="text-xs text-muted mt-1.5">JPG, PNG, or WEBP, any size (auto-resized). Square-ish works best.</p>
+            {uploadingField === 'cardImage1' && <p className="text-xs text-accent mt-1 font-semibold">Processing…</p>}
           </div>
           <div className="pt-4">
             <label className="admin-label">"User Research" Card Image (dark card)</label>
@@ -144,8 +147,8 @@ export default function ServiceDetail() {
               <img src={formData.cardImage2} alt="User Research preview" className="w-full h-28 object-cover rounded-lg border border-line mb-2" />
             )}
             <input type="file" accept="image/*" onChange={handleCardImageChange('cardImage2')} disabled={anyUploading} className="admin-input" />
-            <p className="text-xs text-muted mt-1.5">JPG, PNG, or WEBP. Square-ish works best (under 5MB).</p>
-            {uploadingField === 'cardImage2' && <p className="text-xs text-accent mt-1 font-semibold">Uploading…</p>}
+            <p className="text-xs text-muted mt-1.5">JPG, PNG, or WEBP, any size (auto-resized). Square-ish works best.</p>
+            {uploadingField === 'cardImage2' && <p className="text-xs text-accent mt-1 font-semibold">Processing…</p>}
           </div>
         </div>
 
