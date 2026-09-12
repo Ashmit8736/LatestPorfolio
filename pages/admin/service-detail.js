@@ -15,6 +15,7 @@ export default function ServiceDetail() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [uploadingField, setUploadingField] = useState(null);
+  const [mediaPending, setMediaPending] = useState(false);
 
   useEffect(() => {
     fetch('/api/portfolio/service-detail').then(res => res.json()).then(data => {
@@ -22,6 +23,16 @@ export default function ServiceDetail() {
       setLoading(false);
     });
   }, []);
+
+  useEffect(() => {
+    const warnBeforeLeaving = (e) => {
+      if (!mediaPending) return;
+      e.preventDefault();
+      e.returnValue = '';
+    };
+    window.addEventListener('beforeunload', warnBeforeLeaving);
+    return () => window.removeEventListener('beforeunload', warnBeforeLeaving);
+  }, [mediaPending]);
 
   const handleMediaChange = async (e) => {
     const file = e.target.files[0];
@@ -38,6 +49,7 @@ export default function ServiceDetail() {
     try {
       const dataUrl = isVideo ? await fileToBase64(file) : await compressImage(file, 1400);
       setFormData(f => ({ ...f, mediaUrl: dataUrl, mediaType: isVideo ? 'video' : 'image' }));
+      setMediaPending(true);
     } catch (err) {
       alert(err.message || 'Could not process that file. Please try again.');
     } finally {
@@ -52,6 +64,7 @@ export default function ServiceDetail() {
     try {
       const dataUrl = await compressImage(file, 700);
       setFormData(f => ({ ...f, [field]: dataUrl }));
+      setMediaPending(true);
     } catch (err) {
       alert(err.message || 'Could not process that image. Please try again.');
     } finally {
@@ -68,8 +81,10 @@ export default function ServiceDetail() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
       });
-      if (res.ok) alert('Saved!');
-      else {
+      if (res.ok) {
+        setMediaPending(false);
+        alert('Saved!');
+      } else {
         const err = await res.json().catch(() => null);
         if (res.status === 401) {
           alert('Your session has expired. Please log in again.');
@@ -97,6 +112,11 @@ export default function ServiceDetail() {
         </div>
       </div>
       <form onSubmit={handleSubmit} className="admin-card admin-form max-w-3xl">
+        {mediaPending && (
+          <p className="rounded-xl border border-accent/40 bg-accent/10 px-4 py-2.5 text-sm font-semibold text-ink">
+            New media ready — click "Save" below to publish it. It won't be saved if you leave this page first.
+          </p>
+        )}
         <div>
           <label className="admin-label">Main Photo or Video</label>
           <div className="flex flex-col sm:flex-row gap-4 items-start">

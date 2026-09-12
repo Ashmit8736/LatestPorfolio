@@ -8,6 +8,17 @@ export default function Profile() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [uploadingPhoto, setUploadingPhoto] = useState(false);
+  const [photoPending, setPhotoPending] = useState(false);
+
+  useEffect(() => {
+    const warnBeforeLeaving = (e) => {
+      if (!photoPending) return;
+      e.preventDefault();
+      e.returnValue = '';
+    };
+    window.addEventListener('beforeunload', warnBeforeLeaving);
+    return () => window.removeEventListener('beforeunload', warnBeforeLeaving);
+  }, [photoPending]);
 
   useEffect(() => {
     fetch('/api/portfolio/profile').then(res => res.json()).then(data => {
@@ -23,6 +34,7 @@ export default function Profile() {
     try {
       const dataUrl = await compressImage(file);
       setFormData(f => ({ ...f, profileImage: dataUrl }));
+      setPhotoPending(true);
     } catch (err) {
       alert(err.message || 'Photo processing failed. Please try again.');
     } finally {
@@ -39,8 +51,10 @@ export default function Profile() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
       });
-      if (res.ok) alert('Profile saved!');
-      else {
+      if (res.ok) {
+        setPhotoPending(false);
+        alert('Profile saved!');
+      } else {
         const err = await res.json().catch(() => null);
         if (res.status === 401) {
           alert('Your session has expired. Please log in again.');
@@ -77,6 +91,11 @@ export default function Profile() {
               {uploadingPhoto && <p className="text-xs text-accent mt-1 font-semibold">Processing…</p>}
             </div>
           </div>
+          {photoPending && (
+            <p className="mt-3 rounded-xl border border-accent/40 bg-accent/10 px-4 py-2.5 text-sm font-semibold text-ink">
+              New photo ready — click "Save Profile" below to publish it. It won't be saved if you leave this page first.
+            </p>
+          )}
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div><label className="admin-label">Full Name</label><input required value={formData.fullName || ''} onChange={e => setFormData({...formData, fullName: e.target.value})} className="admin-input" /></div>
