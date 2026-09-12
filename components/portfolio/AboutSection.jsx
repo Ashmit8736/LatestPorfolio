@@ -34,7 +34,7 @@ export default function AboutSection({ profile, experiences = [], projects = [],
             <div className="absolute inset-0 bg-[#F5A623] rounded-bl-[120px] rounded-tr-[40px] transform -translate-x-4 translate-y-4"></div>
             <div className="relative w-full h-full overflow-hidden rounded-bl-[120px] rounded-tr-[40px] border-4 border-[#252019] shadow-2xl z-10">
               <img
-                src={profile.profileImage || "/profile.jpg"}
+                src={profile.aboutImage || profile.profileImage || "/profile.jpg"}
                 alt={profile.fullName || "Profile"}
                 className="w-full h-full object-cover"
                 onError={(e) => {

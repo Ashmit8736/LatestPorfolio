@@ -7,18 +7,20 @@ export default function Profile() {
   const [formData, setFormData] = useState({ fullName: '', headline: '', shortBio: '', about: '' });
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const [uploadingPhoto, setUploadingPhoto] = useState(false);
-  const [photoPending, setPhotoPending] = useState(false);
+  const [uploadingField, setUploadingField] = useState(null);
+  const [pendingFields, setPendingFields] = useState(new Set());
+
+  const anyPending = pendingFields.size > 0;
 
   useEffect(() => {
     const warnBeforeLeaving = (e) => {
-      if (!photoPending) return;
+      if (!anyPending) return;
       e.preventDefault();
       e.returnValue = '';
     };
     window.addEventListener('beforeunload', warnBeforeLeaving);
     return () => window.removeEventListener('beforeunload', warnBeforeLeaving);
-  }, [photoPending]);
+  }, [anyPending]);
 
   useEffect(() => {
     fetch('/api/portfolio/profile').then(res => res.json()).then(data => {
@@ -27,18 +29,18 @@ export default function Profile() {
     });
   }, []);
 
-  const handlePhotoChange = async (e) => {
+  const handlePhotoChange = (field) => async (e) => {
     const file = e.target.files[0];
     if (!file) return;
-    setUploadingPhoto(true);
+    setUploadingField(field);
     try {
       const dataUrl = await compressImage(file);
-      setFormData(f => ({ ...f, profileImage: dataUrl }));
-      setPhotoPending(true);
+      setFormData(f => ({ ...f, [field]: dataUrl }));
+      setPendingFields(s => new Set(s).add(field));
     } catch (err) {
       alert(err.message || 'Photo processing failed. Please try again.');
     } finally {
-      setUploadingPhoto(false);
+      setUploadingField(null);
     }
   };
 
@@ -52,7 +54,7 @@ export default function Profile() {
         body: JSON.stringify(formData)
       });
       if (res.ok) {
-        setPhotoPending(false);
+        setPendingFields(new Set());
         alert('Profile saved!');
       } else {
         const err = await res.json().catch(() => null);
@@ -79,23 +81,38 @@ export default function Profile() {
         </div>
       </div>
       <form onSubmit={handleSubmit} className="admin-card admin-form max-w-3xl">
-        <div>
-          <label className="admin-label">Profile Photo</label>
-          <div className="flex items-center gap-4">
-            {formData.profileImage && (
-              <img src={formData.profileImage} alt="Profile preview" className="w-16 h-16 rounded-full object-cover border border-line" />
-            )}
-            <div className="flex-1">
-              <input type="file" accept="image/*" onChange={handlePhotoChange} disabled={uploadingPhoto} className="admin-input" />
-              <p className="text-xs text-muted mt-1.5">Accepted formats: JPG, PNG, or WEBP. Square photos work best (recommended 800×800px, under 5MB).</p>
-              {uploadingPhoto && <p className="text-xs text-accent mt-1 font-semibold">Processing…</p>}
+        {anyPending && (
+          <p className="rounded-xl border border-accent/40 bg-accent/10 px-4 py-2.5 text-sm font-semibold text-ink">
+            New photo ready — click "Save Profile" below to publish it. It won't be saved if you leave this page first.
+          </p>
+        )}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div>
+            <label className="admin-label">Profile Photo (Hero section)</label>
+            <div className="flex items-center gap-4">
+              {formData.profileImage && (
+                <img src={formData.profileImage} alt="Profile preview" className="w-16 h-16 rounded-full object-cover border border-line flex-shrink-0" />
+              )}
+              <div className="flex-1">
+                <input type="file" accept="image/*" onChange={handlePhotoChange('profileImage')} disabled={!!uploadingField} className="admin-input" />
+                {uploadingField === 'profileImage' && <p className="text-xs text-accent mt-1 font-semibold">Processing…</p>}
+              </div>
             </div>
+            <p className="text-xs text-muted mt-1.5">JPG, PNG, or WEBP. Square photos work best (recommended 800×800px, under 5MB). Used in the hero photo at the top of the site.</p>
           </div>
-          {photoPending && (
-            <p className="mt-3 rounded-xl border border-accent/40 bg-accent/10 px-4 py-2.5 text-sm font-semibold text-ink">
-              New photo ready — click "Save Profile" below to publish it. It won't be saved if you leave this page first.
-            </p>
-          )}
+          <div>
+            <label className="admin-label">About Section Photo</label>
+            <div className="flex items-center gap-4">
+              {formData.aboutImage && (
+                <img src={formData.aboutImage} alt="About preview" className="w-16 h-16 rounded-lg object-cover border border-line flex-shrink-0" />
+              )}
+              <div className="flex-1">
+                <input type="file" accept="image/*" onChange={handlePhotoChange('aboutImage')} disabled={!!uploadingField} className="admin-input" />
+                {uploadingField === 'aboutImage' && <p className="text-xs text-accent mt-1 font-semibold">Processing…</p>}
+              </div>
+            </div>
+            <p className="text-xs text-muted mt-1.5">JPG, PNG, or WEBP, any size (auto-resized). Used in the "Who is..." photo in the About section — can be a different photo from the hero one.</p>
+          </div>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div><label className="admin-label">Full Name</label><input required value={formData.fullName || ''} onChange={e => setFormData({...formData, fullName: e.target.value})} className="admin-input" /></div>
@@ -115,7 +132,7 @@ export default function Profile() {
           <div><label className="admin-label">GitHub URL</label><input value={formData.githubUrl || ''} onChange={e => setFormData({...formData, githubUrl: e.target.value})} className="admin-input" /></div>
           <div><label className="admin-label">LinkedIn URL</label><input value={formData.linkedinUrl || ''} onChange={e => setFormData({...formData, linkedinUrl: e.target.value})} className="admin-input" /></div>
         </div>
-        <button type="submit" disabled={saving || uploadingPhoto} className="admin-btn admin-btn-primary admin-btn-block">
+        <button type="submit" disabled={saving || !!uploadingField} className="admin-btn admin-btn-primary admin-btn-block">
           {saving ? 'Saving…' : 'Save Profile'}
         </button>
       </form>
