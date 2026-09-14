@@ -14,10 +14,10 @@ export default function AboutSection({ profile, experiences = [], projects = [],
 
   const years = computeYears(experiences);
   const stats = [
-    projects.length > 0 && { label: 'Projects Built', value: `${projects.length}+` },
-    experiences.length > 0 && { label: 'Companies Worked', value: `${experiences.length}` },
-    skills.length > 0 && { label: 'Technologies', value: `${skills.length}+` },
-    years && { label: 'Years Experience', value: `${years}+` },
+    (profile.statsProjectsOverride || projects.length > 0) && { label: 'Projects Built', value: profile.statsProjectsOverride || `${projects.length}+` },
+    (profile.statsCompaniesOverride || experiences.length > 0) && { label: 'Companies Worked', value: profile.statsCompaniesOverride || `${experiences.length}` },
+    (profile.statsTechnologiesOverride || skills.length > 0) && { label: 'Technologies', value: profile.statsTechnologiesOverride || `${skills.length}+` },
+    (profile.statsYearsOverride || years) && { label: 'Years Experience', value: profile.statsYearsOverride || `${years}+` },
   ].filter(Boolean);
 
   return (

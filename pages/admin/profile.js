@@ -132,6 +132,28 @@ export default function Profile() {
           <div><label className="admin-label">GitHub URL</label><input value={formData.githubUrl || ''} onChange={e => setFormData({...formData, githubUrl: e.target.value})} className="admin-input" /></div>
           <div><label className="admin-label">LinkedIn URL</label><input value={formData.linkedinUrl || ''} onChange={e => setFormData({...formData, linkedinUrl: e.target.value})} className="admin-input" /></div>
         </div>
+        <div>
+          <label className="admin-label">Stats Section (About page)</label>
+          <p className="text-xs text-muted mb-2">Leave blank to auto-calculate from your Projects, Experiences, and Skills. Fill in to override with a custom value (e.g. "50+").</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div>
+              <label className="admin-label">Projects Built</label>
+              <input placeholder="auto" value={formData.statsProjectsOverride || ''} onChange={e => setFormData({...formData, statsProjectsOverride: e.target.value})} className="admin-input" />
+            </div>
+            <div>
+              <label className="admin-label">Companies Worked</label>
+              <input placeholder="auto" value={formData.statsCompaniesOverride || ''} onChange={e => setFormData({...formData, statsCompaniesOverride: e.target.value})} className="admin-input" />
+            </div>
+            <div>
+              <label className="admin-label">Technologies</label>
+              <input placeholder="auto" value={formData.statsTechnologiesOverride || ''} onChange={e => setFormData({...formData, statsTechnologiesOverride: e.target.value})} className="admin-input" />
+            </div>
+            <div>
+              <label className="admin-label">Years Experience</label>
+              <input placeholder="auto" value={formData.statsYearsOverride || ''} onChange={e => setFormData({...formData, statsYearsOverride: e.target.value})} className="admin-input" />
+            </div>
+          </div>
+        </div>
         <button type="submit" disabled={saving || !!uploadingField} className="admin-btn admin-btn-primary admin-btn-block">
           {saving ? 'Saving…' : 'Save Profile'}
         </button>

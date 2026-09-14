@@ -32,6 +32,10 @@ model Profile {
   resumeUrl    String?
   profileImage String?  @db.LongText
   aboutImage   String?  @db.LongText
+  statsProjectsOverride     String?
+  statsCompaniesOverride    String?
+  statsTechnologiesOverride String?
+  statsYearsOverride        String?
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 }
