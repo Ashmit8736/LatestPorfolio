@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import AdminLayout from '../../components/layout/AdminLayout';
 import Loader3D from '../../components/common/Loader3D';
 import { compressImage, fileToBase64 } from '../../lib/clientImage';
+import { toast } from '../../lib/toast';
 
 const EMPTY = { heading: '', paragraph1: '', paragraph2: '', checklist: '', mediaUrl: '', mediaType: 'image', cardImage1: '', cardImage2: '' };
 
@@ -40,7 +41,7 @@ export default function ServiceDetail() {
     const isVideo = file.type.startsWith('video/');
 
     if (isVideo && file.size > MAX_VIDEO_BYTES) {
-      alert(`That video is ${(file.size / (1024 * 1024)).toFixed(1)}MB. Please keep videos under 2MB — larger files will fail to save.`);
+      toast.error(`That video is ${(file.size / (1024 * 1024)).toFixed(1)}MB. Please keep videos under 2MB — larger files will fail to save.`);
       e.target.value = '';
       return;
     }
@@ -51,7 +52,7 @@ export default function ServiceDetail() {
       setFormData(f => ({ ...f, mediaUrl: dataUrl, mediaType: isVideo ? 'video' : 'image' }));
       setMediaPending(true);
     } catch (err) {
-      alert(err.message || 'Could not process that file. Please try again.');
+      toast.error(err.message || 'Could not process that file. Please try again.');
     } finally {
       setUploadingField(null);
     }
@@ -66,7 +67,7 @@ export default function ServiceDetail() {
       setFormData(f => ({ ...f, [field]: dataUrl }));
       setMediaPending(true);
     } catch (err) {
-      alert(err.message || 'Could not process that image. Please try again.');
+      toast.error(err.message || 'Could not process that image. Please try again.');
     } finally {
       setUploadingField(null);
     }
@@ -83,14 +84,14 @@ export default function ServiceDetail() {
       });
       if (res.ok) {
         setMediaPending(false);
-        alert('Saved!');
+        toast.success('Saved!');
       } else {
         const err = await res.json().catch(() => null);
         if (res.status === 401) {
-          alert('Your session has expired. Please log in again.');
+          toast.error('Your session has expired. Please log in again.');
           window.location.href = '/login';
         } else {
-          alert(err?.message || 'Error saving');
+          toast.error(err?.message || 'Error saving');
         }
       }
     } finally {

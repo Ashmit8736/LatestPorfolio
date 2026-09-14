@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import AdminLayout from '../../../../components/layout/AdminLayout';
 import Loader3D from '../../../../components/common/Loader3D';
+import { toast } from '../../../../lib/toast';
 
 export default function Edit() {
   const router = useRouter();
@@ -47,7 +48,7 @@ export default function Edit() {
       try {
         uploadedUrl = await compressImage(imageFile);
       } catch (err) {
-        alert('Image processing failed: ' + err.message);
+        toast.error('Image processing failed: ' + err.message);
         setIsUploading(false);
         return;
       }
@@ -66,10 +67,10 @@ export default function Edit() {
     else {
       const err = await res.json().catch(() => null);
       if (res.status === 401) {
-        alert('Your session has expired. Please log in again.');
+        toast.error('Your session has expired. Please log in again.');
         window.location.href = '/login';
       } else {
-        alert(err?.message || 'Error saving');
+        toast.error(err?.message || 'Error saving');
       }
     }
   };

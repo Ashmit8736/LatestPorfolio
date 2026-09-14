@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import AdminLayout from '../../../components/layout/AdminLayout';
 import { SERVICE_ICONS } from '../../../lib/iconRegistry';
+import { toast } from '../../../lib/toast';
 
 const ICON_NAMES = Object.keys(SERVICE_ICONS);
 
@@ -18,10 +19,10 @@ export default function New() {
     else {
       const err = await res.json().catch(() => null);
       if (res.status === 401) {
-        alert('Your session has expired. Please log in again.');
+        toast.error('Your session has expired. Please log in again.');
         window.location.href = '/login';
       } else {
-        alert(err?.message || 'Error saving');
+        toast.error(err?.message || 'Error saving');
       }
     }
   };

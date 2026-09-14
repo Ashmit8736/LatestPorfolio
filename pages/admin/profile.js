@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import AdminLayout from '../../components/layout/AdminLayout';
 import Loader3D from '../../components/common/Loader3D';
 import { compressImage } from '../../lib/clientImage';
+import { toast } from '../../lib/toast';
 
 export default function Profile() {
   const [formData, setFormData] = useState({ fullName: '', headline: '', shortBio: '', about: '' });
@@ -38,7 +39,7 @@ export default function Profile() {
       setFormData(f => ({ ...f, [field]: dataUrl }));
       setPendingFields(s => new Set(s).add(field));
     } catch (err) {
-      alert(err.message || 'Photo processing failed. Please try again.');
+      toast.error(err.message || 'Photo processing failed. Please try again.');
     } finally {
       setUploadingField(null);
     }
@@ -55,14 +56,14 @@ export default function Profile() {
       });
       if (res.ok) {
         setPendingFields(new Set());
-        alert('Profile saved!');
+        toast.success('Profile saved!');
       } else {
         const err = await res.json().catch(() => null);
         if (res.status === 401) {
-          alert('Your session has expired. Please log in again.');
+          toast.error('Your session has expired. Please log in again.');
           window.location.href = '/login';
         } else {
-          alert(err?.message || 'Error saving');
+          toast.error(err?.message || 'Error saving');
         }
       }
     } finally {

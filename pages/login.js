@@ -1,7 +1,9 @@
-import { useState } from 'react';
-import { Eye, EyeOff } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Eye, EyeOff, ShieldAlert } from 'lucide-react';
+import Loader3D from '../components/common/Loader3D';
 
 export default function Login() {
+  const [accessStatus, setAccessStatus] = useState('checking'); // checking | allowed | blocked
   const [pin, setPin] = useState('');
   const [pinEntered, setPinEntered] = useState(false);
   const [email, setEmail] = useState('');
@@ -11,6 +13,13 @@ export default function Login() {
   const [loggingIn, setLoggingIn] = useState(false);
   const [showPin, setShowPin] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+
+  useEffect(() => {
+    fetch('/api/check-ip')
+      .then(res => res.json())
+      .then(data => setAccessStatus(data.allowed ? 'allowed' : 'blocked'))
+      .catch(() => setAccessStatus('blocked'));
+  }, []);
 
   const handlePinSubmit = (e) => {
     e.preventDefault();
@@ -25,6 +34,7 @@ export default function Login() {
       } else {
         setError('Invalid Security PIN');
       }
+      setPin('');
       setVerifyingPin(false);
     }, 300);
   };
@@ -63,74 +73,92 @@ export default function Login() {
           Ashmit.
         </div>
 
-        <div className="admin-card p-8 sm:p-10">
-          <p className="admin-eyebrow justify-center">{!pinEntered ? 'Step 1 of 2' : 'Step 2 of 2'}</p>
-          <h2 className="admin-title text-center mb-8">{!pinEntered ? 'Security Check' : 'Admin Login'}</h2>
-          {error && (
-            <p className="mb-6 rounded-xl border border-danger/30 bg-danger/10 px-4 py-3 text-center text-sm font-semibold text-danger">{error}</p>
-          )}
+        {accessStatus === 'checking' && (
+          <div className="admin-card p-8 sm:p-10 flex justify-center">
+            <Loader3D label="Checking access" />
+          </div>
+        )}
 
-          {!pinEntered ? (
-            <form onSubmit={handlePinSubmit} className="space-y-6">
-              <div>
-                <label className="admin-label text-center">Enter 6-digit Security PIN</label>
-                <div className="relative">
-                  <input
-                    required
-                    type={showPin ? 'text' : 'password'}
-                    maxLength="6"
-                    value={pin}
-                    onChange={e => setPin(e.target.value)}
-                    className="admin-input text-center text-2xl tracking-[0.5em] font-heading pr-12"
-                    placeholder="••••••"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowPin(v => !v)}
-                    aria-label={showPin ? 'Hide PIN' : 'Show PIN'}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted hover:text-ink transition-colors"
-                  >
-                    {showPin ? <EyeOff size={20} /> : <Eye size={20} />}
-                  </button>
+        {accessStatus === 'blocked' && (
+          <div className="admin-card p-8 sm:p-10 text-center">
+            <div className="w-14 h-14 rounded-full bg-danger/10 flex items-center justify-center mx-auto mb-5">
+              <ShieldAlert className="w-7 h-7 text-danger" />
+            </div>
+            <h2 className="admin-title mb-2">Not Authorized</h2>
+            <p className="text-sm text-muted">You don't have access to this page.</p>
+          </div>
+        )}
+
+        {accessStatus === 'allowed' && (
+          <div className="admin-card p-8 sm:p-10">
+            <p className="admin-eyebrow justify-center">{!pinEntered ? 'Step 1 of 2' : 'Step 2 of 2'}</p>
+            <h2 className="admin-title text-center mb-8">{!pinEntered ? 'Security Check' : 'Admin Login'}</h2>
+            {error && (
+              <p className="mb-6 rounded-xl border border-danger/30 bg-danger/10 px-4 py-3 text-center text-sm font-semibold text-danger">{error}</p>
+            )}
+
+            {!pinEntered ? (
+              <form onSubmit={handlePinSubmit} className="space-y-6">
+                <div>
+                  <label className="admin-label text-center">Enter 6-digit Security PIN</label>
+                  <div className="relative">
+                    <input
+                      required
+                      type={showPin ? 'text' : 'password'}
+                      maxLength="6"
+                      value={pin}
+                      onChange={e => setPin(e.target.value)}
+                      className="admin-input text-center text-2xl tracking-[0.5em] font-heading pr-12"
+                      placeholder="••••••"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPin(v => !v)}
+                      aria-label={showPin ? 'Hide PIN' : 'Show PIN'}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-muted hover:text-ink transition-colors"
+                    >
+                      {showPin ? <EyeOff size={20} /> : <Eye size={20} />}
+                    </button>
+                  </div>
                 </div>
-              </div>
-              <button type="submit" disabled={verifyingPin} className="admin-btn admin-btn-primary admin-btn-block">
-                {verifyingPin ? 'Verifying…' : 'Verify PIN'}
-              </button>
-            </form>
-          ) : (
-            <form onSubmit={handleSubmit} className="space-y-5">
-              <div>
-                <label className="admin-label">Email</label>
-                <input required type="email" value={email} onChange={e => setEmail(e.target.value)} className="admin-input" disabled={loggingIn} />
-              </div>
-              <div>
-                <label className="admin-label">Password</label>
-                <div className="relative">
-                  <input
-                    required
-                    type={showPassword ? 'text' : 'password'}
-                    value={password}
-                    onChange={e => setPassword(e.target.value)}
-                    className="admin-input pr-12"
-                    disabled={loggingIn}
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(v => !v)}
-                    aria-label={showPassword ? 'Hide password' : 'Show password'}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted hover:text-ink transition-colors"
-                  >
-                    {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-                  </button>
+                <button type="submit" disabled={verifyingPin} className="admin-btn admin-btn-primary admin-btn-block">
+                  {verifyingPin ? 'Verifying…' : 'Verify PIN'}
+                </button>
+              </form>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-5">
+                <div>
+                  <label className="admin-label">Email</label>
+                  <input required type="email" value={email} onChange={e => setEmail(e.target.value)} className="admin-input" disabled={loggingIn} />
                 </div>
-              </div>
-              <button type="submit" disabled={loggingIn} className="admin-btn admin-btn-primary admin-btn-block">
-                {loggingIn ? 'Logging in…' : 'Login'}
-              </button>
-            </form>
-          )}
-        </div>
+                <div>
+                  <label className="admin-label">Password</label>
+                  <div className="relative">
+                    <input
+                      required
+                      type={showPassword ? 'text' : 'password'}
+                      value={password}
+                      onChange={e => setPassword(e.target.value)}
+                      className="admin-input pr-12"
+                      disabled={loggingIn}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(v => !v)}
+                      aria-label={showPassword ? 'Hide password' : 'Show password'}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-muted hover:text-ink transition-colors"
+                    >
+                      {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                    </button>
+                  </div>
+                </div>
+                <button type="submit" disabled={loggingIn} className="admin-btn admin-btn-primary admin-btn-block">
+                  {loggingIn ? 'Logging in…' : 'Login'}
+                </button>
+              </form>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

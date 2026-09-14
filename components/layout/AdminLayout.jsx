@@ -1,14 +1,44 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import AdminSidebar from './AdminSidebar';
+import Loader3D from '../common/Loader3D';
 import Head from 'next/head';
 import { Menu, X, ArrowLeft } from 'lucide-react';
+import { toast } from '../../lib/toast';
 
 export default function AdminLayout({ children }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [authStatus, setAuthStatus] = useState('checking'); // checking | authed | redirecting
   const router = useRouter();
   const isDashboard = router.pathname === '/admin';
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch('/api/auth/me')
+      .then(res => {
+        if (cancelled) return;
+        if (res.ok) {
+          setAuthStatus('authed');
+        } else {
+          setAuthStatus('redirecting');
+          toast.error('Your session has expired. Please log in again.');
+          router.replace('/login');
+        }
+      })
+      .catch(() => {
+        if (!cancelled) setAuthStatus('authed');
+      });
+    return () => { cancelled = true; };
+  }, [router]);
+
+  if (authStatus !== 'authed') {
+    return (
+      <div className="flex h-screen items-center justify-center bg-cream">
+        <Loader3D label="Checking session" />
+      </div>
+    );
+  }
 
   return (
     <div className="flex h-screen font-sans overflow-hidden bg-cream text-ink relative selection:bg-accent/40">

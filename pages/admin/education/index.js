@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import AdminLayout from '../../../components/layout/AdminLayout';
 import Loader3D from '../../../components/common/Loader3D';
+import { toast } from '../../../lib/toast';
 
 export default function List() {
   const [items, setItems] = useState([]);
@@ -22,10 +23,10 @@ export default function List() {
         setItems(items.filter(i => i.id !== id));
       } else {
         const err = await res.json();
-        alert('Failed to delete: ' + (err.message || 'Unknown error'));
+        toast.error('Failed to delete: ' + (err.message || 'Unknown error'));
       }
     } catch (e) {
-      alert('Network error while deleting');
+      toast.error('Network error while deleting');
     }
   };
 

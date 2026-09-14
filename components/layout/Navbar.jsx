@@ -4,21 +4,9 @@ import { useEffect, useState, useRef } from 'react';
 import { Menu, X, Mail } from 'lucide-react';
 
 export default function Navbar() {
-  const [showAdmin, setShowAdmin] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [hidden, setHidden] = useState(false);
   const lastScrollY = useRef(0);
-
-  useEffect(() => {
-    fetch('/api/check-ip')
-      .then(res => res.json())
-      .then(data => {
-        if (data.allowed) {
-          setShowAdmin(true);
-        }
-      })
-      .catch(err => console.error('Error checking IP:', err));
-  }, []);
 
   useEffect(() => {
     lastScrollY.current = window.scrollY;
@@ -71,14 +59,12 @@ export default function Navbar() {
           </div>
 
           <div className="hidden md:flex items-center gap-3">
-            {showAdmin && (
-              <Link
-                href="/login"
-                className="px-4 py-2 text-xs font-heading font-semibold tracking-wider uppercase text-[#F5A623] border border-[#F5A623]/50 rounded-full hover:bg-[#F5A623] hover:text-[#1C1712] transition-colors"
-              >
-                Admin
-              </Link>
-            )}
+            <Link
+              href="/login"
+              className="px-4 py-2 text-xs font-heading font-semibold tracking-wider uppercase text-[#F5A623] border border-[#F5A623]/50 rounded-full hover:bg-[#F5A623] hover:text-[#1C1712] transition-colors"
+            >
+              Admin
+            </Link>
             <a
               href="#contact"
               className="flex items-center gap-2 px-5 py-2.5 bg-[#F7F1E6] text-[#1C1712] rounded-full font-heading font-bold text-sm hover:bg-[#F5A623] transition-colors"
@@ -118,15 +104,13 @@ export default function Navbar() {
                     {item}
                   </a>
                 ))}
-                {showAdmin && (
-                  <Link
-                    href="/login"
-                    onClick={() => setIsMenuOpen(false)}
-                    className="inline-block mt-2 px-6 py-3 w-max text-sm font-heading font-semibold tracking-wider uppercase text-[#F5A623] border border-[#F5A623]/50 rounded-full hover:bg-[#F5A623] hover:text-[#1C1712] transition-colors"
-                  >
-                    Only Admin
-                  </Link>
-                )}
+                <Link
+                  href="/login"
+                  onClick={() => setIsMenuOpen(false)}
+                  className="inline-block mt-2 px-6 py-3 w-max text-sm font-heading font-semibold tracking-wider uppercase text-[#F5A623] border border-[#F5A623]/50 rounded-full hover:bg-[#F5A623] hover:text-[#1C1712] transition-colors"
+                >
+                  Admin
+                </Link>
               </div>
             </motion.div>
           )}
