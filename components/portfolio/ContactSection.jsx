@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Mail, Phone, MapPin } from 'lucide-react';
 import { GithubIcon, LinkedinIcon, FacebookIcon, TwitterIcon, ThreadsIcon, InstagramIcon, YoutubeIcon, LinkIcon } from '../icons';
+import HireMeBadge from '../common/HireMeBadge';
 
 function socialIcon(platform) {
   const p = (platform || '').toLowerCase();
@@ -50,6 +51,9 @@ export default function ContactSection({ profile, socials = [] }) {
           <h2 className="text-4xl md:text-5xl font-heading font-extrabold text-[#1C1712]">
             Let's Talk for Your <span className="text-[#F5A623]">Next Project</span>
           </h2>
+          <div className="flex justify-center mt-6">
+            <HireMeBadge />
+          </div>
         </div>
 
         <div className="grid lg:grid-cols-[1fr_320px] gap-8">
