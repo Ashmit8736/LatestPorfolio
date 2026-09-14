@@ -154,8 +154,12 @@ export default function ServiceDetail() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-line">
           <div className="pt-4">
             <label className="admin-label">"Our Services" Card Image (light card)</label>
+            <p className="text-xs text-muted mb-1.5">Shown only when an image is uploaded here — leave empty to hide this card from the site entirely.</p>
             {formData.cardImage1 && (
-              <img src={formData.cardImage1} alt="Our Services preview" className="w-full h-28 object-cover rounded-lg border border-line mb-2" />
+              <div className="flex items-center gap-3 mb-2">
+                <img src={formData.cardImage1} alt="Our Services preview" className="w-full h-28 object-cover rounded-lg border border-line" />
+                <button type="button" onClick={() => { setFormData(f => ({ ...f, cardImage1: '' })); setMediaPending(true); }} className="admin-action admin-action-danger flex-shrink-0">Remove</button>
+              </div>
             )}
             <input type="file" accept="image/*" onChange={handleCardImageChange('cardImage1')} disabled={anyUploading} className="admin-input" />
             <p className="text-xs text-muted mt-1.5">JPG, PNG, or WEBP, any size (auto-resized). Square-ish works best.</p>
@@ -163,8 +167,12 @@ export default function ServiceDetail() {
           </div>
           <div className="pt-4">
             <label className="admin-label">"User Research" Card Image (dark card)</label>
+            <p className="text-xs text-muted mb-1.5">Shown only when an image is uploaded here — leave empty to hide this card from the site entirely.</p>
             {formData.cardImage2 && (
-              <img src={formData.cardImage2} alt="User Research preview" className="w-full h-28 object-cover rounded-lg border border-line mb-2" />
+              <div className="flex items-center gap-3 mb-2">
+                <img src={formData.cardImage2} alt="User Research preview" className="w-full h-28 object-cover rounded-lg border border-line" />
+                <button type="button" onClick={() => { setFormData(f => ({ ...f, cardImage2: '' })); setMediaPending(true); }} className="admin-action admin-action-danger flex-shrink-0">Remove</button>
+              </div>
             )}
             <input type="file" accept="image/*" onChange={handleCardImageChange('cardImage2')} disabled={anyUploading} className="admin-input" />
             <p className="text-xs text-muted mt-1.5">JPG, PNG, or WEBP, any size (auto-resized). Square-ish works best.</p>
