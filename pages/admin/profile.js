@@ -120,6 +120,11 @@ export default function Profile() {
         </div>
         <div><label className="admin-label">Short Bio</label><textarea required rows="2" value={formData.shortBio || ''} onChange={e => setFormData({...formData, shortBio: e.target.value})} className="admin-input" /></div>
         <div><label className="admin-label">About</label><textarea required rows="5" value={formData.about || ''} onChange={e => setFormData({...formData, about: e.target.value})} className="admin-input" /></div>
+        <div>
+          <label className="admin-label">Footer Tagline</label>
+          <textarea rows="2" placeholder={`Leave blank to auto-generate from your name and headline`} value={formData.footerTagline || ''} onChange={e => setFormData({...formData, footerTagline: e.target.value})} className="admin-input" />
+          <p className="text-xs text-muted mt-1.5">Short intro shown in the site footer, next to your logo.</p>
+        </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div><label className="admin-label">Location</label><input value={formData.location || ''} onChange={e => setFormData({...formData, location: e.target.value})} className="admin-input" /></div>
           <div><label className="admin-label">Email</label><input type="email" value={formData.email || ''} onChange={e => setFormData({...formData, email: e.target.value})} className="admin-input" /></div>

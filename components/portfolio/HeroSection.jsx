@@ -25,7 +25,7 @@ export default function HeroSection({ profile, socials = [] }) {
   }));
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center pt-32 pb-16 sm:pt-40 sm:pb-10 overflow-hidden bg-[#F7F1E6]">
+    <section id="home" className="relative min-h-screen flex items-center justify-center pt-32 pb-16 sm:pt-40 sm:pb-10 overflow-hidden bg-[#F7F1E6]">
       <div className="absolute top-0 -left-4 w-96 h-96 bg-[#F5A623] rounded-full mix-blend-multiply filter blur-[150px] opacity-20 animate-blob"></div>
       <div className="absolute -bottom-8 right-20 w-96 h-96 bg-[#F5A623] rounded-full mix-blend-multiply filter blur-[150px] opacity-20 animate-blob animation-delay-4000"></div>
 

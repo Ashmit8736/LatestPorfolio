@@ -36,6 +36,7 @@ model Profile {
   statsCompaniesOverride    String?
   statsTechnologiesOverride String?
   statsYearsOverride        String?
+  footerTagline String? @db.Text
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 }

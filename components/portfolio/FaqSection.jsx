@@ -29,7 +29,7 @@ export default function FaqSection() {
   const [openIndex, setOpenIndex] = useState(1);
 
   return (
-    <section className="scroll-mt-24 py-12 md:py-20 bg-[#1C1712] relative">
+    <section id="faq" className="scroll-mt-24 py-12 md:py-20 bg-[#1C1712] relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
