@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Mail } from 'lucide-react';
 import { GithubIcon as Github, LinkedinIcon as Linkedin, FacebookIcon, TwitterIcon, ThreadsIcon, InstagramIcon } from '../icons';
+import HireMeBadge from '../common/HireMeBadge';
 
 const STICKERS = [
   { label: 'React.js', className: 'top-6 -left-4 sm:-left-10 bg-[#1C1712] text-white -rotate-6' },
@@ -110,6 +111,9 @@ export default function HeroSection({ profile, socials = [] }) {
                 {s.label}
               </span>
             ))}
+            <div className="absolute left-1/2 -translate-x-1/2 -bottom-10 z-30">
+              <HireMeBadge size={84} />
+            </div>
           </motion.div>
 
           {/* Quote */}
@@ -122,6 +126,22 @@ export default function HeroSection({ profile, socials = [] }) {
             "{profile.shortBio}"
           </motion.div>
         </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="flex flex-wrap justify-center gap-3 mt-16 md:mt-10"
+        >
+          {CAPABILITY_TAGS.map(tag => (
+            <span
+              key={tag.label}
+              className={`px-5 py-2.5 rounded-full text-xs sm:text-sm font-heading font-bold tracking-wide shadow-sm ${tag.dark ? 'bg-[#1C1712] text-white' : 'bg-[#F5A623] text-[#1C1712]'}`}
+            >
+              {tag.label}
+            </span>
+          ))}
+        </motion.div>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -149,22 +169,6 @@ export default function HeroSection({ profile, socials = [] }) {
           >
             <Linkedin className="w-5 h-5" /> LinkedIn
           </a>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.5 }}
-          className="flex flex-wrap justify-center gap-3 mt-8"
-        >
-          {CAPABILITY_TAGS.map(tag => (
-            <span
-              key={tag.label}
-              className={`px-5 py-2.5 rounded-full text-xs sm:text-sm font-heading font-bold tracking-wide shadow-sm ${tag.dark ? 'bg-[#1C1712] text-white' : 'bg-[#F5A623] text-[#1C1712]'}`}
-            >
-              {tag.label}
-            </span>
-          ))}
         </motion.div>
       </div>
     </section>
