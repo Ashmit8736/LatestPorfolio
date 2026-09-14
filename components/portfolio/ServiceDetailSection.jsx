@@ -41,6 +41,19 @@ export default function ServiceDetailSection({ detail }) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
+          className="text-center mb-6 md:mb-8"
+        >
+          <h1 className="text-4xl md:text-5xl font-heading font-extrabold text-[#1C1712] mb-2">Service Details</h1>
+          <p className="text-sm font-medium text-[#5C5346]">
+            <a href="#home" className="hover:text-[#1C1712]">Home</a> / <span className="text-[#F5A623]">Service Details</span>
+          </p>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
           className="relative w-full aspect-[16/8] rounded-3xl overflow-hidden shadow-[0_20px_50px_-20px_rgba(28,23,18,0.3)] mb-8 md:mb-12"
         >
           <VideoPreview mediaUrl={detail.mediaUrl} mediaType={detail.mediaType} />
