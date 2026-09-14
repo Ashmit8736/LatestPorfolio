@@ -111,37 +111,44 @@ export default function HeroSection({ profile, socials = [] }) {
                 {s.label}
               </span>
             ))}
-            <div className="absolute left-1/2 -translate-x-1/2 -bottom-10 z-30">
-              <HireMeBadge size={84} />
-            </div>
           </motion.div>
 
-          {/* Quote */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="hidden md:block bg-white border border-[#E8DFCE] rounded-2xl p-5 shadow-sm text-sm text-[#5C5346] leading-relaxed"
-          >
-            "{profile.shortBio}"
-          </motion.div>
-        </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="flex flex-wrap justify-center gap-3 mt-16 md:mt-10"
-        >
-          {CAPABILITY_TAGS.map(tag => (
-            <span
-              key={tag.label}
-              className={`px-5 py-2.5 rounded-full text-xs sm:text-sm font-heading font-bold tracking-wide shadow-sm ${tag.dark ? 'bg-[#1C1712] text-white' : 'bg-[#F5A623] text-[#1C1712]'}`}
+          {/* Quote + badge + capability tags */}
+          <div className="flex flex-col items-center md:items-start gap-4 mt-8 md:mt-0">
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.15 }}
             >
-              {tag.label}
-            </span>
-          ))}
-        </motion.div>
+              <HireMeBadge size={120} />
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="bg-white border border-[#E8DFCE] rounded-2xl p-5 shadow-sm text-sm text-[#5C5346] leading-relaxed text-center md:text-left"
+            >
+              "{profile.shortBio}"
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="flex flex-wrap justify-center md:justify-start gap-2"
+            >
+              {CAPABILITY_TAGS.map(tag => (
+                <span
+                  key={tag.label}
+                  className={`px-4 py-2 rounded-full text-xs font-heading font-bold tracking-wide shadow-sm whitespace-nowrap ${tag.dark ? 'bg-[#1C1712] text-white' : 'bg-[#F5A623] text-[#1C1712]'}`}
+                >
+                  {tag.label}
+                </span>
+              ))}
+            </motion.div>
+          </div>
+        </div>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
