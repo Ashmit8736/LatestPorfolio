@@ -9,6 +9,14 @@ const STICKERS = [
   { label: 'MySQL', className: 'bottom-8 -right-4 sm:-right-10 bg-[#F5A623] text-[#1C1712] -rotate-3' },
 ];
 
+const CAPABILITY_TAGS = [
+  { label: 'Prototype', dark: false },
+  { label: 'Dashboard', dark: true },
+  { label: 'Mobile App Design', dark: false },
+  { label: 'Website Design', dark: true },
+  { label: 'Design System', dark: false },
+];
+
 const FOLLOW_PLATFORMS = [
   { key: 'facebook', match: 'facebook', Icon: FacebookIcon },
   { key: 'twitter', match: 'twitter', Icon: TwitterIcon },
@@ -42,7 +50,12 @@ export default function HeroSection({ profile, socials = [] }) {
           </span>
 
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-heading font-extrabold tracking-tight leading-[1.1] flex flex-col items-center">
-            <span className="text-[#1C1712]">I'm {profile.fullName}</span>
+            <span className="flex items-center gap-3 md:gap-4 text-[#1C1712]">
+              <span className="w-10 h-10 md:w-14 md:h-14 rounded-full bg-[#F5A623] flex items-center justify-center text-[#1C1712] text-lg md:text-2xl flex-shrink-0">
+                {(profile.fullName || 'A').charAt(0)}
+              </span>
+              I'm {profile.fullName}
+            </span>
             <span className="text-[#F5A623] mt-1">{profile.headline}</span>
           </h1>
         </motion.div>
@@ -136,6 +149,22 @@ export default function HeroSection({ profile, socials = [] }) {
           >
             <Linkedin className="w-5 h-5" /> LinkedIn
           </a>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.5 }}
+          className="flex flex-wrap justify-center gap-3 mt-8"
+        >
+          {CAPABILITY_TAGS.map(tag => (
+            <span
+              key={tag.label}
+              className={`px-5 py-2.5 rounded-full text-xs sm:text-sm font-heading font-bold tracking-wide shadow-sm ${tag.dark ? 'bg-[#1C1712] text-white' : 'bg-[#F5A623] text-[#1C1712]'}`}
+            >
+              {tag.label}
+            </span>
+          ))}
         </motion.div>
       </div>
     </section>
